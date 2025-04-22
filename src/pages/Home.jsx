@@ -1,40 +1,119 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { BarChart3, MessageSquare, LineChart, ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
+import {
+  BarChart3,
+  MessageSquare,
+  LineChart,
+  ArrowRight,
+  ChevronRight,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/layout/Layout";
 import { TabTitle } from "@/lib/generalFunction";
+import { prediksiCards } from "../lib/dummyData";
 
-const Home = () => {
+const Index = () => {
   TabTitle("SahamPedia | Home");
+
+  const heroRef = useRef < HTMLDivElement > null;
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      if (!heroRef.current) return;
+
+      const { clientX, clientY } = e;
+      const rect = heroRef.current.getBoundingClientRect();
+      const x = clientX - rect.left;
+      const y = clientY - rect.top;
+
+      const moveX = (x - rect.width / 2) / 50;
+      const moveY = (y - rect.height / 2) / 50;
+
+      const elements = heroRef.current.querySelectorAll(".hero-element");
+      elements.forEach((el, i) => {
+        const htmlEl = el;
+        const factor = (i + 1) * 0.2;
+        htmlEl.style.transform = `translate(${moveX * factor}px, ${
+          moveY * factor
+        }px)`;
+      });
+    };
+
+    document.addEventListener("mousemove", handleMouseMove);
+    return () => document.removeEventListener("mousemove", handleMouseMove);
+  }, []);
 
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className="relative py-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r rounded-lg from-blue-600 to-purple-600 opacity-90"></div>
-        <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
+      <section
+        ref={heroRef}
+        className="relative py-24 md:py-32 overflow-hidden rounded-2xl mb-20"
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-700 dark:from-blue-700 dark:to-purple-800"></div>
+
+        <div className="absolute hero-element top-1/4 -left-8 w-56 h-56 rounded-full bg-white/10 backdrop-blur-2xl"></div>
+        <div className="absolute hero-element bottom-1/3 -right-20 w-64 h-64 rounded-full bg-white/5 backdrop-blur-xl"></div>
+        <div className="absolute hero-element top-1/2 left-1/4 w-32 h-32 rounded-full bg-white/10 backdrop-blur-lg"></div>
+
         <div className="container mx-auto px-4 text-center relative z-10">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white">
-            SahamPedia Insight Hub
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white leading-tight [text-wrap:balance]">
+            <span className="inline-block animate-fade-in [animation-delay:0.2s]">
+              SahamPedia
+            </span>{" "}
+            <span className="relative inline-block">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-purple-200 animate-fade-in [animation-delay:0.4s]">
+                Insight
+              </span>
+              <svg
+                className="absolute -bottom-2 left-0 w-full h-1 animate-fade-in [animation-delay:0.8s]"
+                viewBox="0 0 100 1"
+                preserveAspectRatio="none"
+              >
+                <line
+                  x1="0"
+                  y1="0"
+                  x2="100"
+                  y2="0"
+                  stroke="url(#gradient)"
+                  strokeWidth="2"
+                />
+                <defs>
+                  <linearGradient
+                    id="gradient"
+                    x1="0%"
+                    y1="0%"
+                    x2="100%"
+                    y2="0%"
+                  >
+                    <stop offset="0%" stopColor="#60A5FA" />
+                    <stop offset="100%" stopColor="#C084FC" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </span>{" "}
+            <span className="inline-block animate-fade-in [animation-delay:0.6s]">
+              Hub
+            </span>
           </h1>
-          <p className="text-xl md:text-2xl max-w-3xl mx-auto mb-10 text-white/90">
+          <p className="text-xl md:text-2xl max-w-3xl mx-auto mb-10 text-white/90 animate-fade-in [animation-delay:0.8s] [text-wrap:balance]">
             Platform edukasi dan analisis saham blue chip Indonesia dengan
             dukungan AI untuk keputusan investasi yang lebih cerdas.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <div className="flex flex-col sm:flex-row justify-center gap-4 animate-fade-in [animation-delay:1s]">
             <Button
               size="lg"
               variant="default"
-              className="bg-white text-blue-600 hover:bg-gray-100"
+              className="group bg-blue-600 hover:bg-blue-700 text-white border-0 font-medium py-6 px-8 shadow-lg hover:shadow-xl transition-all duration-200"
             >
               Mulai Belajar
+              <ChevronRight className="ml-1 h-5 w-5 transform group-hover:translate-x-1 transition-transform" />
             </Button>
             <Link to="/implementation">
               <Button
                 size="lg"
                 variant="outline"
-                className="border-white text-white hover:bg-white/10"
+                className="bg-white/10 border-white text-white hover:bg-white/20 py-6 px-8 font-medium"
               >
                 Lihat Implementasi
               </Button>
@@ -43,115 +122,202 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Features */}
-      <section className="py-16">
+      <section className="py-20">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">Fitur Utama</h2>
+          <div className="flex flex-col items-center mb-16">
+            <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mb-6"></div>
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-gray-900 dark:text-white">
+              Fitur Utama
+            </h2>
+            <p className="text-gray-600 dark:text-gray-300 text-center max-w-2xl">
+              Analisis dan panduan investasi berkualitas untuk membantu Anda
+              membuat keputusan saham yang lebih baik
+            </p>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="glass-effect p-6 rounded-lg shadow-sm hover:shadow-md transition-all transform hover:-translate-y-1 flex flex-col items-center text-center">
-              <div className="bg-blue-100 p-3 rounded-full mb-4">
-                <BarChart3 className="h-8 w-8 text-blue-600" />
-              </div>
-              <h3 className="text-xl font-semibold mb-3">Analisis Blue Chip</h3>
-              <p className="text-gray-600">
-                Analisis mendalam saham blue chip Indonesia dengan indikator
-                fundamental dan teknikal terbaik.
-              </p>
-            </div>
-
-            <div className="glass-effect p-6 rounded-lg shadow-sm hover:shadow-md transition-all transform hover:-translate-y-1 flex flex-col items-center text-center">
-              <div className="bg-blue-100 p-3 rounded-full mb-4">
-                <MessageSquare className="h-8 w-8 text-blue-600" />
-              </div>
-              <h3 className="text-xl font-semibold mb-3">RASA Chatbot</h3>
-              <p className="text-gray-600">
-                Dapatkan informasi saham dan jawaban pertanyaan investasi dari
-                chatbot cerdas berbasis RASA.
-              </p>
-            </div>
-
-            <div className="glass-effect p-6 rounded-lg shadow-sm hover:shadow-md transition-all transform hover:-translate-y-1 flex flex-col items-center text-center">
-              <div className="bg-blue-100 p-3 rounded-full mb-4">
-                <LineChart className="h-8 w-8 text-blue-600" />
-              </div>
-              <h3 className="text-xl font-semibold mb-3">Prediksi Pasar</h3>
-              <p className="text-gray-600">
-                Prediksi tren pasar dan saham blue chip dengan model machine
-                learning canggih.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Stocks Section */}
-      <section className="py-16 bg-white/50">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row md:items-center justify-between mb-10">
-            <div>
-              <h2 className="text-3xl font-bold mb-2">Saham Populer</h2>
-              <p className="text-gray-600">
-                Pantau saham blue chip terpopuler di Indonesia
-              </p>
-            </div>
-            <Link
-              to="/prediksi/bbca"
-              className="flex items-center text-blue-600 mt-4 md:mt-0"
-            >
-              Lihat Semua <ArrowRight className="ml-1 h-4 w-4" />
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {prediksiCards.map((card) => (
-              <Link
-                key={card.code}
-                to={`/prediksi/${card.code.toLowerCase()}`}
-                className="card-gradient p-4 rounded-lg shadow-sm hover:shadow-md transition-all flex flex-col items-center text-center"
+            {[
+              {
+                icon: BarChart3,
+                title: "Analisis Blue Chip",
+                description:
+                  "Analisis mendalam saham blue chip Indonesia dengan indikator fundamental dan teknikal terbaik.",
+                gradient: "from-blue-500 to-cyan-500",
+                delay: 0,
+              },
+              {
+                icon: MessageSquare,
+                title: "RASA Chatbot",
+                description:
+                  "Dapatkan informasi saham dan jawaban pertanyaan investasi dari chatbot cerdas berbasis RASA.",
+                gradient: "from-purple-500 to-pink-500",
+                delay: 0.2,
+              },
+              {
+                icon: LineChart,
+                title: "Prediksi Pasar",
+                description:
+                  "Prediksi tren pasar dan saham blue chip dengan model machine learning canggih.",
+                gradient: "from-green-500 to-teal-500",
+                delay: 0.4,
+              },
+            ].map((feature, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3 }}
+                viewport={{ once: true }}
+                className="group relative bg-white dark:bg-gray-800/50 backdrop-blur-sm overflow-hidden p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700"
               >
-                <h3 className="text-lg font-bold mb-1">{card.code}</h3>
-                <p className="text-sm text-gray-500 mb-2">{card.name}</p>
-                <p
-                  className={`text-lg font-semibold ${
-                    card.change > 0 ? "text-green-600" : "text-red-600"
-                  }`}
-                >
-                  {card.price}
-                </p>
-                <p
-                  className={`text-sm ${
-                    card.change > 0 ? "text-green-600" : "text-red-600"
-                  }`}
-                >
-                  {card.change > 0 ? "+" : ""}
-                  {card.change}%
-                </p>
-              </Link>
+                <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                <div className="relative z-10">
+                  <div
+                    className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}
+                  >
+                    <feature.icon className="h-8 w-8 text-white" />
+                  </div>
+
+                  <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">
+                    {feature.title}
+                  </h3>
+
+                  <p className="text-gray-600 dark:text-gray-300">
+                    {feature.description}
+                  </p>
+                </div>
+
+                <div
+                  className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{
+                    backgroundImage: `linear-gradient(to right, ${
+                      feature.gradient.includes("blue")
+                        ? "#3B82F6"
+                        : feature.gradient.includes("purple")
+                        ? "#8B5CF6"
+                        : "#10B981"
+                    }, ${
+                      feature.gradient.includes("cyan")
+                        ? "#06B6D4"
+                        : feature.gradient.includes("pink")
+                        ? "#EC4899"
+                        : "#059669"
+                    })`,
+                  }}
+                ></div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-16 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br rounded-lg from-gray-900 to-blue-900 opacity-95"></div>
-        <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
+      <section className="py-20 relative">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800 -z-10 rounded-3xl my-4 mx-8 opacity-60"></div>
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row md:items-center justify-between mb-10">
+            <div>
+              <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mb-6"></div>
+              <h2 className="text-3xl md:text-4xl font-bold mb-2 text-gray-900 dark:text-white">
+                Saham Populer
+              </h2>
+              <p className="text-gray-600 dark:text-gray-300">
+                Pantau saham blue chip terpopuler di Indonesia
+              </p>
+            </div>
+            <Link
+              to="/prediksi/bbca"
+              className="flex items-center text-blue-600 dark:text-blue-400 mt-4 md:mt-0 group"
+            >
+              Lihat Semua{" "}
+              <ArrowRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            {prediksiCards.map((card, index) => (
+              <motion.div
+                key={card.code}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <Link
+                  to={`/prediksi/${card.code.toLowerCase()}`}
+                  className="group relative bg-white dark:bg-gray-800 backdrop-blur-sm p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 flex flex-col items-center text-center border border-gray-100 dark:border-gray-700"
+                >
+                  <div className="absolute -inset-px bg-gradient-to-br from-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 rounded-xl transition-opacity duration-300 -z-10"></div>
+
+                  <h3 className="text-lg font-bold mb-1 text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                    {card.code}
+                  </h3>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">
+                    {card.name}
+                  </p>
+                  <p
+                    className={`text-lg font-semibold ${
+                      card.change > 0
+                        ? "text-green-600 dark:text-green-500"
+                        : "text-red-600 dark:text-red-500"
+                    }`}
+                  >
+                    {card.price}
+                  </p>
+                  <div
+                    className={`flex items-center mt-1 ${
+                      card.change > 0
+                        ? "text-green-600 dark:text-green-500"
+                        : "text-red-600 dark:text-red-500"
+                    }`}
+                  >
+                    <span
+                      className="inline-block w-2 h-2 rounded-full mr-1"
+                      style={{ backgroundColor: "currentColor" }}
+                    ></span>
+                    <p className="text-sm">
+                      {card.change > 0 ? "+" : ""}
+                      {card.change}%
+                    </p>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 my-10 relative overflow-hidden rounded-2xl">
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-blue-900 dark:from-gray-900 dark:to-blue-950"></div>
+
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden opacity-10">
+          <div className="absolute -top-1/2 -left-1/4 w-full h-full rounded-full bg-blue-400/30 blur-3xl"></div>
+          <div className="absolute -bottom-1/2 -right-1/4 w-full h-full rounded-full bg-purple-400/30 blur-3xl"></div>
+        </div>
+
         <div className="container mx-auto px-4 text-center relative z-10">
-          <h2 className="text-3xl font-bold mb-6 text-white">Siap Memulai?</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
+            Siap Memulai?
+          </h2>
           <p className="text-xl max-w-2xl mx-auto mb-8 text-white/80">
             Tingkatkan strategi investasi saham blue chip Anda dengan analisis
             dan wawasan terbaik dari SahamPedia.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
+            <Button
+              size="lg"
+              className="group bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 border-0 text-white shadow-xl hover:shadow-2xl transition-all duration-200 py-6 px-8"
+            >
               Daftar Sekarang
+              <ChevronRight className="ml-1 h-5 w-5 transform group-hover:translate-x-1 transition-transform" />
             </Button>
             <Link to="/implementation">
               <Button
                 size="lg"
                 variant="outline"
-                className="border-white text-white hover:bg-white/10"
+                className="bg-white/10 border-white text-white hover:bg-white/20 py-6 px-8"
               >
                 Pelajari Detail Implementasi
               </Button>
@@ -163,34 +329,4 @@ const Home = () => {
   );
 };
 
-// Sample data for stock cards
-const prediksiCards = [
-  { code: "BBCA", name: "Bank Central Asia", price: "Rp 9,850", change: 0.75 },
-  {
-    code: "BBNI",
-    name: "Bank Negara Indonesia",
-    price: "Rp 4,780",
-    change: -0.42,
-  },
-  {
-    code: "BBRI",
-    name: "Bank Rakyat Indonesia",
-    price: "Rp 5,225",
-    change: 1.05,
-  },
-  { code: "BMRI", name: "Bank Mandiri", price: "Rp 6,100", change: 0.83 },
-  {
-    code: "TLKM",
-    name: "Telekomunikasi Indonesia",
-    price: "Rp 3,950",
-    change: -0.25,
-  },
-  {
-    code: "ASII",
-    name: "Astra International",
-    price: "Rp 5,575",
-    change: 0.91,
-  },
-];
-
-export default Home;
+export default Index;

@@ -138,3 +138,33 @@ export const courses = [
     featured: false,
   },
 ];
+
+// Home Page Dummy Data - Sementara
+export const prediksiCards = [
+  { code: "BBCA", name: "Bank Central Asia", price: "Rp 9,850", change: 0.75 },
+  {
+    code: "BBNI",
+    name: "Bank Negara Indonesia",
+    price: "Rp 4,780",
+    change: -0.42,
+  },
+  {
+    code: "BBRI",
+    name: "Bank Rakyat Indonesia",
+    price: "Rp 5,225",
+    change: 1.05,
+  },
+  { code: "BMRI", name: "Bank Mandiri", price: "Rp 6,100", change: 0.83 },
+  {
+    code: "TLKM",
+    name: "Telekomunikasi Indonesia",
+    price: "Rp 3,950",
+    change: -0.25,
+  },
+  {
+    code: "ASII",
+    name: "Astra International",
+    price: "Rp 5,575",
+    change: 0.91,
+  },
+];
