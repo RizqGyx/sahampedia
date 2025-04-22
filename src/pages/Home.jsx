@@ -7,6 +7,7 @@ import { TabTitle } from "@/lib/generalFunction";
 
 const Home = () => {
   TabTitle("SahamPedia | Home");
+
   return (
     <Layout>
       {/* Hero Section */}

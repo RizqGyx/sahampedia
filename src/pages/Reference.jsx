@@ -11,62 +11,10 @@ import {
 import { Link, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { TabTitle } from "@/lib/generalFunction";
+import { journalSources } from "../lib/dummyData";
 
 const Reference = () => {
   TabTitle("SahamPedia | Reference");
-
-  const journalSources = [
-    {
-      title: "Prediksi Harga Saham Menggunakan LSTM",
-      authors: "Ahmad Rizki, Budi Santoso",
-      journal: "Jurnal Informatika dan Sistem Informasi",
-      year: 2023,
-      volume: "Vol. 15, No. 2",
-      url: "https://example.com/journal1",
-      description:
-        "Penelitian tentang penggunaan Long Short-Term Memory (LSTM) untuk memprediksi harga saham blue chip Indonesia.",
-    },
-    {
-      title: "Analisis Fundamental Saham Blue Chip Indonesia",
-      authors: "Siti Nurhaliza, Joko Widodo",
-      journal: "Jurnal Ekonomi dan Bisnis",
-      year: 2022,
-      volume: "Vol. 8, No. 3",
-      url: "https://example.com/journal2",
-      description:
-        "Studi komprehensif tentang analisis fundamental saham-saham blue chip di Bursa Efek Indonesia.",
-    },
-    {
-      title: "Penerapan Chatbot AI dalam Konsultasi Investasi Saham",
-      authors: "Dimas Prayoga, Ratna Dewi",
-      journal: "Jurnal Kecerdasan Buatan Indonesia",
-      year: 2023,
-      volume: "Vol. 4, No. 1",
-      url: "https://example.com/journal3",
-      description:
-        "Penelitian tentang pengembangan dan implementasi chatbot AI untuk konsultasi investasi saham.",
-    },
-    {
-      title: "Perbandingan Metode Machine Learning untuk Prediksi Saham",
-      authors: "Eka Putra, Dewi Fortuna",
-      journal: "Jurnal Ilmu Komputer",
-      year: 2022,
-      volume: "Vol. 12, No. 4",
-      url: "https://example.com/journal4",
-      description:
-        "Studi komparatif tentang berbagai metode machine learning dalam memprediksi harga saham.",
-    },
-    {
-      title: "Analisis Teknikal Saham BBCA dan BBRI",
-      authors: "Surya Darma, Indra Kusuma",
-      journal: "Jurnal Pasar Modal Indonesia",
-      year: 2023,
-      volume: "Vol. 7, No. 2",
-      url: "https://example.com/journal5",
-      description:
-        "Analisis mendalam tentang pola teknikal pada saham BBCA dan BBRI selama periode 2020-2023.",
-    },
-  ];
 
   return (
     <Layout>

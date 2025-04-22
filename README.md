@@ -4,7 +4,7 @@
   Saham Pedia [Frontend]
 </h1>
 
-<p align="center">
+<p align="center" style="text-decoration: none;">
  <a href="" target="blank" style="text-decoration: none;">
   <img src="https://img.shields.io/badge/Website-DC143C?style=for-the-badge&logo=medium&logoColor=white" alt="Website"/>
  </a>
