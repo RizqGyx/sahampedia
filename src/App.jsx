@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
+import Course from "./pages/Course";
 import Implementation from "./pages/Implementation";
 import Reference from "./pages/Reference";
 
@@ -9,6 +10,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Home />}></Route>
+        <Route path="/course" element={<Course />}></Route>
         <Route path="/implementation" element={<Implementation />}></Route>
         <Route path="/reference" element={<Reference />}></Route>
         <Route

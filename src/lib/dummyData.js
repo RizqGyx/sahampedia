@@ -1,3 +1,5 @@
+import { BookOpen, GraduationCap, Users } from "lucide-react";
+
 // Reference Page Dummy Data - Sementara
 export const journalSources = [
   {

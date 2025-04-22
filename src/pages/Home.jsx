@@ -13,10 +13,10 @@ import { Layout } from "@/components/layout/Layout";
 import { TabTitle } from "@/lib/generalFunction";
 import { prediksiCards } from "../lib/dummyData";
 
-const Index = () => {
+const Home = () => {
   TabTitle("SahamPedia | Home");
 
-  const heroRef = useRef < HTMLDivElement > null;
+  const heroRef = useRef(null);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -46,7 +46,7 @@ const Index = () => {
 
   return (
     <Layout>
-      <section
+      <div
         ref={heroRef}
         className="relative py-24 md:py-32 overflow-hidden rounded-2xl mb-20"
       >
@@ -104,7 +104,7 @@ const Index = () => {
             <Button
               size="lg"
               variant="default"
-              className="group bg-blue-600 hover:bg-blue-700 text-white border-0 font-medium py-6 px-8 shadow-lg hover:shadow-xl transition-all duration-200"
+              className="group bg-blue-600 cursor-pointer hover:bg-blue-700 text-white border-0 font-medium py-6 px-8 shadow-lg hover:shadow-xl transition-all duration-200"
             >
               Mulai Belajar
               <ChevronRight className="ml-1 h-5 w-5 transform group-hover:translate-x-1 transition-transform" />
@@ -113,14 +113,14 @@ const Index = () => {
               <Button
                 size="lg"
                 variant="outline"
-                className="bg-white/10 border-white text-white hover:bg-white/20 py-6 px-8 font-medium"
+                className="bg-white/10 border-white text-white cursor-pointer hover:bg-white/20 py-6 px-8 font-medium"
               >
                 Lihat Implementasi
               </Button>
             </Link>
           </div>
         </div>
-      </section>
+      </div>
 
       <section className="py-20">
         <div className="container mx-auto px-4">
@@ -168,7 +168,7 @@ const Index = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.3 }}
-                viewport={{ once: true }}
+                viewport={{ once: false }}
                 className="group relative bg-white dark:bg-gray-800/50 backdrop-blur-sm overflow-hidden p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -243,7 +243,7 @@ const Index = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.3, delay: index * 0.1 }}
-                viewport={{ once: true }}
+                viewport={{ once: false }}
               >
                 <Link
                   to={`/prediksi/${card.code.toLowerCase()}`}
@@ -308,7 +308,7 @@ const Index = () => {
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Button
               size="lg"
-              className="group bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 border-0 text-white shadow-xl hover:shadow-2xl transition-all duration-200 py-6 px-8"
+              className="group bg-gradient-to-r cursor-pointer from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 border-0 text-white shadow-xl hover:shadow-2xl transition-all duration-200 py-6 px-8"
             >
               Daftar Sekarang
               <ChevronRight className="ml-1 h-5 w-5 transform group-hover:translate-x-1 transition-transform" />
@@ -317,7 +317,7 @@ const Index = () => {
               <Button
                 size="lg"
                 variant="outline"
-                className="bg-white/10 border-white text-white hover:bg-white/20 py-6 px-8"
+                className="bg-white/10 border-white cursor-pointer text-white hover:bg-white/20 py-6 px-8"
               >
                 Pelajari Detail Implementasi
               </Button>
@@ -329,4 +329,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Home;

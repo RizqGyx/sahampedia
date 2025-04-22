@@ -20,6 +20,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { courses } from "../lib/dummyData";
 import { levels } from "../lib/constants";
+import { TabTitle } from "@/lib/generalFunction";
 
 function Course() {
   TabTitle("SahamPedia | Course");
@@ -140,7 +141,7 @@ function Course() {
             {filteredCourses.map((course, index) => (
               <Card
                 key={course.id}
-                className={`group relative overflow-hidden bg-white/90 dark:bg-gray-900/80 hover:shadow-xl border transition-all duration-300 dark:border-gray-800 animate-fade-in [animation-delay:var(--delay)]`}
+                className={`group relative overflow-hidden flex flex-column justify-between bg-white/90 dark:bg-gray-900/80 hover:shadow-xl border transition-all duration-300 dark:border-gray-800 animate-fade-in [animation-delay:var(--delay)]`}
                 style={{ "--delay": `${0.1 * index}s` }}
               >
                 {course.featured && (

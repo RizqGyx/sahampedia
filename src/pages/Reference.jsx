@@ -46,7 +46,7 @@ const Reference = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.3, delay: index * 0.1 }}
+              transition={{ duration: 0.3 }}
               viewport={{ once: true }}
             >
               <Card className="glass-effect hover:shadow-lg transition-all duration-300">
