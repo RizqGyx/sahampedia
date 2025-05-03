@@ -13,16 +13,18 @@ export const Footer = () => {
           className="absolute h-full w-full"
           fill="currentColor"
         >
-          <path
-            d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
-            className="text-gray-900 dark:text-blue-950"
-          ></path>
+          <g transform="scale(1, -1) translate(0, -120)">
+            <path
+              d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+              className="text-blue-950 dark:text-indigo-950"
+            />
+          </g>
         </svg>
       </div>
 
       <div className="bg-gradient-to-br from-gray-900 to-blue-950 dark:from-gray-900 dark:to-indigo-950 relative">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 relative z-20">
           <div className="pt-16 pb-8">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
               <div className="space-y-4">
@@ -39,17 +41,6 @@ export const Footer = () => {
                   Platform edukasi dan analisis saham blue chip Indonesia dengan
                   dukungan AI.
                 </p>
-                {/* <div className="flex space-x-3 pt-2">
-                  {[Twitter, Github, Linkedin].map((Icon, i) => (
-                    <a
-                      key={i}
-                      href="#"
-                      className="p-2 rounded-full text-gray-400 hover:text-white hover:bg-white/10 transition-colors"
-                    >
-                      <Icon className="h-5 w-5" />
-                    </a>
-                  ))}
-                </div> */}
               </div>
 
               <div>
@@ -67,6 +58,14 @@ export const Footer = () => {
                   </li>
                   <li>
                     <Link
+                      to="/course"
+                      className="text-gray-300 hover:text-white transition-colors inline-flex items-center hover:translate-x-1 duration-200"
+                    >
+                      Kursus
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
                       to="/implementation"
                       className="text-gray-300 hover:text-white transition-colors inline-flex items-center hover:translate-x-1 duration-200"
                     >
@@ -75,18 +74,10 @@ export const Footer = () => {
                   </li>
                   <li>
                     <Link
-                      to="/referensi"
+                      to="/reference"
                       className="text-gray-300 hover:text-white transition-colors inline-flex items-center hover:translate-x-1 duration-200"
                     >
                       Referensi
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/kursus"
-                      className="text-gray-300 hover:text-white transition-colors inline-flex items-center hover:translate-x-1 duration-200"
-                    >
-                      Kursus
                     </Link>
                   </li>
                 </ul>
@@ -99,8 +90,11 @@ export const Footer = () => {
                 <ul className="space-y-3">
                   {[
                     { name: "IDX", url: "https://www.idx.co.id" },
-                    { name: "Bloomberg", url: "https://www.bloomberg.com" },
-                    { name: "Reuters", url: "https://www.reuters.com" },
+                    { name: "Rasa", url: "https://rasa.com" },
+                    {
+                      name: "Yahoo Finance",
+                      url: "https://finance.yahoo.com",
+                    },
                   ].map((source) => (
                     <li key={source.name}>
                       <a

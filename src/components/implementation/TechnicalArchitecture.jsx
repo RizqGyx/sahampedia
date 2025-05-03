@@ -1,0 +1,129 @@
+import React from "react";
+import { Server, Database, LayoutGrid, BrainCircuit } from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { motion } from "framer-motion";
+
+export const TechnicalArchitecture = () => {
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0 },
+  };
+
+  return (
+    <section id="architecture" className="scroll-mt-16">
+      <motion.h2
+        initial={{ opacity: 0, x: -20 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.5 }}
+        viewport={{ once: true }}
+        className="text-2xl font-bold bg-gradient-to-r from-violet-600 to-blue-600 bg-clip-text text-transparent mb-6"
+      >
+        Arsitektur Teknis
+      </motion.h2>
+
+      <motion.p
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+        viewport={{ once: true }}
+        className="text-gray-700 mb-6"
+      >
+        SahamPedia Insight Hub dibangun dengan arsitektur modern yang terdiri
+        dari beberapa lapisan untuk memastikan performa, keamanan, dan
+        skalabilitas.
+      </motion.p>
+
+      <motion.div
+        variants={container}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true }}
+        className="grid grid-cols-1 md:grid-cols-2 gap-6"
+      >
+        {[
+          {
+            icon: Server,
+            title: "Infrastruktur Backend",
+            description: "Arsitektur server dan komputasi",
+            items: [
+              "Server cloud terkelola dengan auto-scaling untuk menangani lonjakan traffic",
+              "Microservices berbasis Docker untuk deployment dan skalabilitas yang mudah",
+              "Load balancing untuk distribusi traffic yang optimal",
+              "CDN untuk pengiriman konten yang cepat",
+            ],
+          },
+          {
+            icon: Database,
+            title: "Penyimpanan Data",
+            description: "Pengelolaan data saham dan analisis",
+            items: [
+              "Database SQL untuk data terstruktur seperti informasi saham dan pengguna",
+              "Database NoSQL untuk data time-series historis harga saham",
+              "Data warehouse untuk analisis data jangka panjang",
+              "In-memory caching untuk kueri yang sering diakses",
+            ],
+          },
+          {
+            icon: LayoutGrid,
+            title: "Frontend & UI",
+            description: "Antarmuka pengguna dan visualisasi",
+            items: [
+              "Aplikasi web responsif dengan React dan TypeScript",
+              "Visualisasi data interaktif dengan Recharts dan D3.js",
+              "State management dengan React Context API",
+              "Design system yang konsisten untuk pengalaman pengguna yang menyatu",
+            ],
+          },
+          {
+            icon: BrainCircuit,
+            title: "AI & Machine Learning",
+            description: "Model dan prediksi",
+            items: [
+              "Pipeline machine learning untuk melatih dan men-deploy model",
+              "API prediksi untuk integrasi dengan frontend",
+              "Natural Language Processing (NLP) untuk analisis sentimen berita",
+              "Sistem rekomendasi berbasis ML untuk saham blue chip",
+            ],
+          },
+        ].map((section, index) => (
+          <motion.div key={section.title} variants={item} className="h-full">
+            <Card className="h-full bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border-violet-100/20">
+              <CardHeader className="flex flex-row items-center space-x-4 pb-2">
+                <section.icon className="h-8 w-8 text-violet-600" />
+                <div>
+                  <CardTitle className="text-xl bg-gradient-to-br from-violet-700 to-blue-700 bg-clip-text text-transparent">
+                    {section.title}
+                  </CardTitle>
+                  <CardDescription>{section.description}</CardDescription>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <ul className="list-disc pl-5 space-y-2 text-gray-700">
+                  {section.items.map((item, idx) => (
+                    <li key={idx}>{item}</li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          </motion.div>
+        ))}
+      </motion.div>
+    </section>
+  );
+};

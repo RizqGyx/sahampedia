@@ -219,14 +219,14 @@ function Course() {
 
         {/* Newsletter Section */}
         <section className="mt-20 mb-10 relative overflow-hidden rounded-2xl">
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-blue-50 dark:from-gray-900 dark:to-blue-950"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-blue-900 dark:from-gray-900 dark:to-blue-950"></div>
 
           <div className="relative py-16 px-6 md:px-12">
             <div className="max-w-3xl mx-auto text-center">
-              <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">
+              <h2 className="text-3xl font-bold mb-4 text-white">
                 Dapatkan Pembaruan Kursus
               </h2>
-              <p className="text-gray-600 dark:text-gray-300 mb-8">
+              <p className="text-gray-300 mb-8">
                 Berlangganan newsletter kami untuk mendapatkan informasi kursus
                 baru dan materi eksklusif.
               </p>

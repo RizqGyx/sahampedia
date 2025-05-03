@@ -1,22 +1,25 @@
 import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import {
-  BarChart3,
-  MessageSquare,
-  LineChart,
-  ArrowRight,
-  ChevronRight,
-} from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/layout/Layout";
 import { TabTitle } from "@/lib/generalFunction";
-import { prediksiCards } from "../lib/dummyData";
+import { featureWeb } from "@/lib/constants";
+import useFetch from "@/hooks/useFetch";
+import { StockCardSkeleton } from "@/components/home/StockCardSkeleton";
+import { StockCard } from "@/components/home/StockCard";
 
 const Home = () => {
   TabTitle("SahamPedia | Home");
 
   const heroRef = useRef(null);
+  const { data, loading, error, get } = useFetch();
+  useEffect(() => {
+    get("http://127.0.0.1:5000/stocks");
+  }, []);
+
+  console.log(data);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -56,7 +59,13 @@ const Home = () => {
         <div className="absolute hero-element bottom-1/3 -right-20 w-64 h-64 rounded-full bg-white/5 backdrop-blur-xl"></div>
         <div className="absolute hero-element top-1/2 left-1/4 w-32 h-32 rounded-full bg-white/10 backdrop-blur-lg"></div>
 
-        <div className="container mx-auto px-4 text-center relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          viewport={{ once: false }}
+          className="container mx-auto px-4 text-center relative z-10"
+        >
           <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white leading-tight [text-wrap:balance]">
             <span className="inline-block animate-fade-in [animation-delay:0.2s]">
               SahamPedia
@@ -119,7 +128,7 @@ const Home = () => {
               </Button>
             </Link>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       <section className="py-20">
@@ -136,32 +145,7 @@ const Home = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                icon: BarChart3,
-                title: "Analisis Blue Chip",
-                description:
-                  "Analisis mendalam saham blue chip Indonesia dengan indikator fundamental dan teknikal terbaik.",
-                gradient: "from-blue-500 to-cyan-500",
-                delay: 0,
-              },
-              {
-                icon: MessageSquare,
-                title: "RASA Chatbot",
-                description:
-                  "Dapatkan informasi saham dan jawaban pertanyaan investasi dari chatbot cerdas berbasis RASA.",
-                gradient: "from-purple-500 to-pink-500",
-                delay: 0.2,
-              },
-              {
-                icon: LineChart,
-                title: "Prediksi Pasar",
-                description:
-                  "Prediksi tren pasar dan saham blue chip dengan model machine learning canggih.",
-                gradient: "from-green-500 to-teal-500",
-                delay: 0.4,
-              },
-            ].map((feature, index) => (
+            {featureWeb.map((feature, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
@@ -214,77 +198,35 @@ const Home = () => {
       </section>
 
       <section className="py-20 relative">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800 -z-10 rounded-3xl my-4 mx-8 opacity-60"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800 -z-10 rounded-3xl my-4  opacity-60"></div>
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-10">
             <div>
-              <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mb-6"></div>
+              <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mb-6"></div>
               <h2 className="text-3xl md:text-4xl font-bold mb-2 text-gray-900 dark:text-white">
                 Saham Populer
               </h2>
               <p className="text-gray-600 dark:text-gray-300">
-                Pantau saham blue chip terpopuler di Indonesia
+                Pantau saham blue chip terpopuler di Indonesia di Bidang
+                Perbankan
               </p>
             </div>
-            <Link
-              to="/prediksi/bbca"
-              className="flex items-center text-blue-600 dark:text-blue-400 mt-4 md:mt-0 group"
-            >
-              Lihat Semua{" "}
-              <ArrowRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {prediksiCards.map((card, index) => (
-              <motion.div
-                key={card.code}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.3, delay: index * 0.1 }}
-                viewport={{ once: false }}
-              >
-                <Link
-                  to={`/prediksi/${card.code.toLowerCase()}`}
-                  className="group relative bg-white dark:bg-gray-800 backdrop-blur-sm p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 flex flex-col items-center text-center border border-gray-100 dark:border-gray-700"
-                >
-                  <div className="absolute -inset-px bg-gradient-to-br from-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 rounded-xl transition-opacity duration-300 -z-10"></div>
-
-                  <h3 className="text-lg font-bold mb-1 text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                    {card.code}
-                  </h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">
-                    {card.name}
-                  </p>
-                  <p
-                    className={`text-lg font-semibold ${
-                      card.change > 0
-                        ? "text-green-600 dark:text-green-500"
-                        : "text-red-600 dark:text-red-500"
-                    }`}
-                  >
-                    {card.price}
-                  </p>
-                  <div
-                    className={`flex items-center mt-1 ${
-                      card.change > 0
-                        ? "text-green-600 dark:text-green-500"
-                        : "text-red-600 dark:text-red-500"
-                    }`}
-                  >
-                    <span
-                      className="inline-block w-2 h-2 rounded-full mr-1"
-                      style={{ backgroundColor: "currentColor" }}
-                    ></span>
-                    <p className="text-sm">
-                      {card.change > 0 ? "+" : ""}
-                      {card.change}%
-                    </p>
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {loading ? (
+              Array.from({ length: 4 }).map((_, idx) => (
+                <StockCardSkeleton key={idx} />
+              ))
+            ) : data && data.length > 0 ? (
+              data.map((card, index) => (
+                <StockCard key={card.stock} card={card} index={index} />
+              ))
+            ) : (
+              <h1 className="col-span-full text-center text-gray-600 dark:text-gray-300">
+                Tidak Ada Data Saham Tersedia Sekarang Ini
+              </h1>
+            )}
           </div>
         </div>
       </section>
@@ -297,7 +239,13 @@ const Home = () => {
           <div className="absolute -bottom-1/2 -right-1/4 w-full h-full rounded-full bg-purple-400/30 blur-3xl"></div>
         </div>
 
-        <div className="container mx-auto px-4 text-center relative z-10">
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: false }}
+          className="container mx-auto px-4 text-center relative z-10"
+        >
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
             Siap Memulai?
           </h2>
@@ -323,7 +271,7 @@ const Home = () => {
               </Button>
             </Link>
           </div>
-        </div>
+        </motion.div>
       </section>
     </Layout>
   );

@@ -143,30 +143,36 @@ export const courses = [
 
 // Home Page Dummy Data - Sementara
 export const prediksiCards = [
-  { code: "BBCA", name: "Bank Central Asia", price: "Rp 9,850", change: 0.75 },
+  {
+    code: "BBCA",
+    name: "Bank Central Asia",
+    priceYesterday: "9.776,37",
+    priceToday: "9.850",
+    change: 0.75,
+    image: "bbca-logo.png",
+  },
   {
     code: "BBNI",
     name: "Bank Negara Indonesia",
-    price: "Rp 4,780",
+    priceYesterday: "4.799,42",
+    priceToday: "4.780",
     change: -0.42,
+    image: "bbni-logo.png",
   },
   {
     code: "BBRI",
     name: "Bank Rakyat Indonesia",
-    price: "Rp 5,225",
+    priceYesterday: "5.169,17",
+    priceToday: "5.225",
     change: 1.05,
-  },
-  { code: "BMRI", name: "Bank Mandiri", price: "Rp 6,100", change: 0.83 },
-  {
-    code: "TLKM",
-    name: "Telekomunikasi Indonesia",
-    price: "Rp 3,950",
-    change: -0.25,
+    image: "bbri-logo.png",
   },
   {
-    code: "ASII",
-    name: "Astra International",
-    price: "Rp 5,575",
-    change: 0.91,
+    code: "BMRI",
+    name: "Bank Mandiri",
+    priceYesterday: "6.050,70",
+    priceToday: "6.100",
+    change: 0.83,
+    image: "bmri-logo.png",
   },
 ];
