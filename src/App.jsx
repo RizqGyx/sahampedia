@@ -33,7 +33,7 @@ function App() {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />}></Route>
-        <Route path="/prediction/:slug" element={<Prediction />}></Route>
+        <Route path="/prediction/:symbol" element={<Prediction />}></Route>
         <Route path="/course" element={<Course />}></Route>
         <Route path="/implementation" element={<Implementation />}></Route>
         <Route path="/reference" element={<Reference />}></Route>

@@ -101,7 +101,7 @@ export const Header = () => {
                     Prediksi
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <div className="grid grid-cols-5 gap-2 p-4 bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-lg shadow-xl w-[600px]">
+                    <div className="grid grid-cols-4 gap-2 p-4 bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-lg shadow-xl w-[600px]">
                       {prediksiOptions.map((option) => (
                         <Link
                           key={option.path}
@@ -210,7 +210,7 @@ export const Header = () => {
                   >
                     Beranda
                   </Link>
-                  <div className="space-y-2">
+                  <div className="space-y-2 ">
                     <button
                       onClick={togglePrediksi}
                       className={`flex items-center justify-between w-full cursor-pointer text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors px-4 py-2 rounded-md ${
@@ -229,12 +229,12 @@ export const Header = () => {
                       </span>
                     </button>
                     {isPrediksiOpen && (
-                      <div className="pl-4 space-y-2 max-h-60 overflow-y-auto">
+                      <div className="pl-4 space-y-2 max-h-60 overflow-y-auto border-l-2 border-white">
                         {prediksiOptions.map((option) => (
                           <Link
                             key={option.path}
                             to={option.path}
-                            className={`block text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors px-4 py-2 rounded-md ${
+                            className={`block text-gray-600 dark:text-gray-400  hover:text-blue-600 dark:hover:text-blue-400 transition-colors px-4 py-2 rounded-md ${
                               location.pathname === option.path
                                 ? "bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400"
                                 : ""

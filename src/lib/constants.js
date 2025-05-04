@@ -5,11 +5,20 @@ export const levels = ["Semua", "Pemula", "Menengah", "Lanjutan"];
 
 // Navbar For Prediksi Option
 export const prediksiOptions = [
-  { label: "BBCA", path: "/prediction/BBCA" },
-  { label: "BBNI", path: "/prediction/BBNI" },
-  { label: "BBRI", path: "/prediction/BBRI" },
-  { label: "BMRI", path: "/prediction/BMRI" },
+  { label: "BBCA", path: "/prediction/bbca" },
+  { label: "BBNI", path: "/prediction/bbni" },
+  { label: "BBRI", path: "/prediction/bbri" },
+  { label: "BMRI", path: "/prediction/bmri" },
 ];
+
+export const stockDescriptions = {
+  bbca: "PT Bank Central Asia Tbk (BBCA) adalah perusahaan yang bergerak di bidang perbankan dan merupakan bank terbesar di Indonesia dilihat dari nilai kapitalisasi pasar.",
+  bbni: "PT Bank Negara Indonesia Tbk (BBNI) adalah sebuah institusi bank milik pemerintah, yang merupakan bank komersial tertua dalam sejarah Indonesia.",
+  bbri: "PT Bank Rakyat Indonesia Tbk (BBRI) adalah salah satu bank milik pemerintah terbesar di Indonesia yang fokus pada segmen mikro, kecil, dan menengah.",
+  bmri: "PT Bank Mandiri Tbk (BMRI) adalah bank terbesar di Indonesia dalam hal aset, pinjaman, dan deposit, yang didirikan pada 2 Oktober 1998.",
+  default:
+    "Perusahaan blue chip yang terdaftar di Bursa Efek Indonesia dengan kinerja keuangan yang stabil dan kapitalisasi pasar yang besar.",
+};
 
 // Home Page For Main Feature
 export const featureWeb = [
