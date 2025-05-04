@@ -19,8 +19,6 @@ const Home = () => {
     get("http://127.0.0.1:5000/stocks");
   }, []);
 
-  console.log(data);
-
   useEffect(() => {
     const handleMouseMove = (e) => {
       if (!heroRef.current) return;
