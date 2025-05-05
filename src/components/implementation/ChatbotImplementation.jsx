@@ -37,11 +37,11 @@ export const ChatbotImplementation = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.1 }}
         viewport={{ once: true }}
-        className="text-gray-700 mb-6"
+        className="text-gray-700 mb-6 dark:text-white"
       >
         SahamPedia menggunakan RASA, platform open-source untuk membangun
         chatbot yang cerdas dan kontekstual, memberikan dukungan dan informasi
-        saham secara real-time kepada pengguna.
+        saham kepada pengguna.
       </motion.p>
 
       <motion.div
@@ -59,7 +59,6 @@ export const ChatbotImplementation = () => {
               "RASA NLU untuk pemahaman bahasa alami dan ekstraksi entitas",
               "RASA Core untuk manajemen dialog dan pemilihan respons",
               "Custom actions untuk mengakses API data saham eksternal",
-              "Tracker store untuk menyimpan riwayat percakapan",
               "Model bahasa Indonesia khusus untuk terminologi saham",
             ],
           },
@@ -67,34 +66,18 @@ export const ChatbotImplementation = () => {
             icon: MessageSquare,
             title: "Fitur Chatbot",
             items: [
-              "Pemantauan harga saham dan indeks real-time",
+              "Prediksi harga saham untuk masa depan",
               "Informasi fundamental perusahaan blue chip",
-              "Ringkasan analisis teknikal terbaru",
-              "Pemberitahuan peristiwa pasar penting",
-              "Jawaban atas pertanyaan edukasi pasar modal",
-              "Rekomendasi saham berdasarkan profil risiko",
-            ],
-          },
-          {
-            icon: Workflow,
-            title: "Alur Percakapan",
-            items: [
-              "Intent recognition untuk mengidentifikasi tujuan pengguna",
-              "Slot filling untuk mengumpulkan parameter yang diperlukan",
-              "Context management untuk percakapan multi-turn",
-              "Fallback handling untuk pertanyaan di luar domain",
-              "Dialog aktif dengan klarifikasi dan saran proaktif",
+              "Jawaban atas pertanyaan edukasi saham",
             ],
           },
           {
             icon: Cpu,
             title: "Pengembangan & Pelatihan",
             items: [
-              "Data training dari ribuan percakapan pasar modal",
+              "Data training dari kebutuhan edukasi",
               "Pelatihan model NLU dengan contoh kalimat bahasa Indonesia",
               "Pengembangan stories untuk alur percakapan yang alami",
-              "Integrasi dengan API data saham dan berita",
-              "Pelatihan berkelanjutan berdasarkan interaksi pengguna nyata",
             ],
           },
         ].map((section, index) => (
@@ -112,7 +95,7 @@ export const ChatbotImplementation = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4 text-gray-700">
+                <div className="space-y-4 text-gray-700 dark:text-white">
                   <p>
                     {index === 0
                       ? "Komponen utama implementasi RASA kami:"
@@ -122,7 +105,7 @@ export const ChatbotImplementation = () => {
                       ? "Kami menerapkan alur percakapan dinamis:"
                       : "Proses pengembangan chatbot kami melibatkan:"}
                   </p>
-                  <ul className="list-disc pl-5 space-y-2">
+                  <ul className="list-disc pl-5 space-y-2 dark:text-white">
                     {section.items.map((item, idx) => (
                       <li key={idx}>{item}</li>
                     ))}

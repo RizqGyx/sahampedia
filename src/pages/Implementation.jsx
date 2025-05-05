@@ -1,10 +1,9 @@
 import React from "react";
 import { Layout } from "@/components/layout/Layout";
 import { ImplementationHero } from "@/components/implementation/ImplementationHero";
-// import { ImplementationNav } from "@/components/implementation/ImplementationNav";
+import { ImplementationNav } from "@/components/implementation/ImplementationNav";
 import { TechnicalArchitecture } from "@/components/implementation/TechnicalArchitecture";
 import { DataSources } from "@/components/implementation/DataSources";
-import { AnalysisMethods } from "@/components/implementation/AnalysisMethods";
 import { ChatbotImplementation } from "@/components/implementation/ChatbotImplementation";
 import { ToolsTechnologies } from "@/components/implementation/ToolsTechnologies";
 import { motion } from "framer-motion";
@@ -23,7 +22,9 @@ const Implementation = () => {
       >
         <ImplementationHero />
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 mt-8">
-          <div className="lg:col-span-1">{/* <ImplementationNav /> */}</div>
+          <div className="lg:col-span-1">
+            <ImplementationNav />
+          </div>
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -32,7 +33,6 @@ const Implementation = () => {
           >
             <TechnicalArchitecture />
             <DataSources />
-            <AnalysisMethods />
             <ChatbotImplementation />
             <ToolsTechnologies />
           </motion.div>

@@ -42,7 +42,7 @@ export const TechnicalArchitecture = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.1 }}
         viewport={{ once: true }}
-        className="text-gray-700 mb-6"
+        className="text-gray-700 mb-6 dark:text-white"
       >
         SahamPedia Insight Hub dibangun dengan arsitektur modern yang terdiri
         dari beberapa lapisan untuk memastikan performa, keamanan, dan
@@ -58,35 +58,12 @@ export const TechnicalArchitecture = () => {
       >
         {[
           {
-            icon: Server,
-            title: "Infrastruktur Backend",
-            description: "Arsitektur server dan komputasi",
-            items: [
-              "Server cloud terkelola dengan auto-scaling untuk menangani lonjakan traffic",
-              "Microservices berbasis Docker untuk deployment dan skalabilitas yang mudah",
-              "Load balancing untuk distribusi traffic yang optimal",
-              "CDN untuk pengiriman konten yang cepat",
-            ],
-          },
-          {
-            icon: Database,
-            title: "Penyimpanan Data",
-            description: "Pengelolaan data saham dan analisis",
-            items: [
-              "Database SQL untuk data terstruktur seperti informasi saham dan pengguna",
-              "Database NoSQL untuk data time-series historis harga saham",
-              "Data warehouse untuk analisis data jangka panjang",
-              "In-memory caching untuk kueri yang sering diakses",
-            ],
-          },
-          {
             icon: LayoutGrid,
             title: "Frontend & UI",
             description: "Antarmuka pengguna dan visualisasi",
             items: [
-              "Aplikasi web responsif dengan React dan TypeScript",
-              "Visualisasi data interaktif dengan Recharts dan D3.js",
-              "State management dengan React Context API",
+              "Aplikasi web responsif dengan React",
+              "Visualisasi data interaktif dengan Recharts",
               "Design system yang konsisten untuk pengalaman pengguna yang menyatu",
             ],
           },
@@ -95,10 +72,9 @@ export const TechnicalArchitecture = () => {
             title: "AI & Machine Learning",
             description: "Model dan prediksi",
             items: [
-              "Pipeline machine learning untuk melatih dan men-deploy model",
               "API prediksi untuk integrasi dengan frontend",
-              "Natural Language Processing (NLP) untuk analisis sentimen berita",
-              "Sistem rekomendasi berbasis ML untuk saham blue chip",
+              "Natural Language Processing (NLP) untuk analisis chatbot",
+              "Sistem prediksi harga saham berbasis LSTM",
             ],
           },
         ].map((section, index) => (
@@ -114,7 +90,7 @@ export const TechnicalArchitecture = () => {
                 </div>
               </CardHeader>
               <CardContent>
-                <ul className="list-disc pl-5 space-y-2 text-gray-700">
+                <ul className="list-disc pl-5 space-y-2 text-gray-700 dark:text-white">
                   {section.items.map((item, idx) => (
                     <li key={idx}>{item}</li>
                   ))}

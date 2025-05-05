@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import {
@@ -9,71 +9,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Book,
-  Link as LinkIcon,
-  ExternalLink,
-  BookText,
-  Calendar,
-  Users2,
-} from "lucide-react";
+import { Book, ExternalLink, BookText, Calendar, Users2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { journalSources } from "@/lib/dummyData";
 
 const Reference = () => {
-  const journalSources = [
-    {
-      title: "Prediksi Harga Saham Menggunakan LSTM",
-      authors: "Ahmad Rizki, Budi Santoso",
-      journal: "Jurnal Informatika dan Sistem Informasi",
-      year: 2023,
-      volume: "Vol. 15, No. 2",
-      url: "https://example.com/journal1",
-      description:
-        "Penelitian tentang penggunaan Long Short-Term Memory (LSTM) untuk memprediksi harga saham blue chip Indonesia.",
-    },
-    {
-      title: "Analisis Fundamental Saham Blue Chip Indonesia",
-      authors: "Siti Nurhaliza, Joko Widodo",
-      journal: "Jurnal Ekonomi dan Bisnis",
-      year: 2022,
-      volume: "Vol. 8, No. 3",
-      url: "https://example.com/journal2",
-      description:
-        "Studi komprehensif tentang analisis fundamental saham-saham blue chip di Bursa Efek Indonesia.",
-    },
-    {
-      title: "Penerapan Chatbot AI dalam Konsultasi Investasi Saham",
-      authors: "Dimas Prayoga, Ratna Dewi",
-      journal: "Jurnal Kecerdasan Buatan Indonesia",
-      year: 2023,
-      volume: "Vol. 4, No. 1",
-      url: "https://example.com/journal3",
-      description:
-        "Penelitian tentang pengembangan dan implementasi chatbot AI untuk konsultasi investasi saham.",
-    },
-    {
-      title: "Perbandingan Metode Machine Learning untuk Prediksi Saham",
-      authors: "Eka Putra, Dewi Fortuna",
-      journal: "Jurnal Ilmu Komputer",
-      year: 2022,
-      volume: "Vol. 12, No. 4",
-      url: "https://example.com/journal4",
-      description:
-        "Studi komparatif tentang berbagai metode machine learning dalam memprediksi harga saham.",
-    },
-    {
-      title: "Analisis Teknikal Saham BBCA dan BBRI",
-      authors: "Surya Darma, Indra Kusuma",
-      journal: "Jurnal Pasar Modal Indonesia",
-      year: 2023,
-      volume: "Vol. 7, No. 2",
-      url: "https://example.com/journal5",
-      description:
-        "Analisis mendalam tentang pola teknikal pada saham BBCA dan BBRI selama periode 2020-2023.",
-    },
-  ];
+  const [visibleCount, setVisibleCount] = useState(8);
 
   const container = {
     hidden: { opacity: 0 },
@@ -88,6 +30,11 @@ const Reference = () => {
   const item = {
     hidden: { opacity: 0, y: 20 },
     show: { opacity: 1, y: 0 },
+  };
+
+  // Handle the "Load More" button click
+  const loadMore = () => {
+    setVisibleCount((prevCount) => prevCount + 8); // Add 8 more items to visibleCount
   };
 
   return (
@@ -147,110 +94,90 @@ const Reference = () => {
               </div>
               <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg">
                 <Calendar className="h-5 w-5 text-blue-200" />
-                <span className="text-blue-100">2022-2023</span>
-              </div>
-              <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg">
-                <Users2 className="h-5 w-5 text-blue-200" />
-                <span className="text-blue-100">10+ Peneliti</span>
+                <span className="text-blue-100">2019-2024</span>
               </div>
             </motion.div>
           </div>
         </motion.div>
 
-        <Tabs defaultValue="all" className="w-full">
-          <TabsList className="w-full max-w-lg mx-auto mb-8 bg-gray-100/50 dark:bg-gray-800/50 backdrop-blur-sm">
-            <TabsTrigger value="all" className="flex-1">
-              Semua Jurnal
-            </TabsTrigger>
-            <TabsTrigger value="technical" className="flex-1">
-              Teknikal
-            </TabsTrigger>
-            <TabsTrigger value="fundamental" className="flex-1">
-              Fundamental
-            </TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="all">
+        <motion.div
+          variants={container}
+          initial="hidden"
+          animate="show"
+          className="grid grid-cols-1 md:grid-cols-2 gap-6"
+        >
+          {journalSources.slice(0, visibleCount).map((journal, index) => (
             <motion.div
-              variants={container}
-              initial="hidden"
-              animate="show"
-              className="grid grid-cols-1 md:grid-cols-2 gap-6"
+              key={index}
+              variants={item}
+              whileHover={{ scale: 1.02 }}
+              className="h-full"
             >
-              {journalSources.map((journal, index) => (
-                <motion.div
-                  key={index}
-                  variants={item}
-                  whileHover={{ scale: 1.02 }}
-                  className="h-full"
-                >
-                  <Card className="h-full glass-effect hover:shadow-lg transition-all duration-300 border-violet-200/20">
-                    <CardHeader>
-                      <div className="flex items-start justify-between">
-                        <div>
-                          <CardTitle className="text-xl bg-gradient-to-br from-violet-700 to-blue-700 dark:from-violet-400 dark:to-blue-400 bg-clip-text text-transparent">
-                            {journal.title}
-                          </CardTitle>
-                          <CardDescription className="flex items-center gap-2 mt-2">
-                            <Users2 className="h-4 w-4 text-violet-500" />
-                            {journal.authors}
-                          </CardDescription>
-                        </div>
-                        <Badge
-                          variant="secondary"
-                          className="bg-violet-100 dark:bg-violet-900 text-violet-700 dark:text-violet-300"
-                        >
-                          {journal.year}
-                        </Badge>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="mb-2 text-gray-600 dark:text-gray-300">
-                        {journal.description}
-                      </p>
-                      <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mt-4 gap-2">
-                        <BookText className="h-4 w-4 text-violet-500" />
-                        <span>
-                          {journal.journal}, {journal.volume}
-                        </span>
-                      </div>
-                    </CardContent>
-                    <CardFooter>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="group"
-                        asChild
-                      >
-                        <a
-                          href={journal.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2"
-                        >
-                          <span>Lihat Jurnal</span>
-                          <ExternalLink className="h-4 w-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                        </a>
-                      </Button>
-                    </CardFooter>
-                  </Card>
-                </motion.div>
-              ))}
+              <Card className="h-full glass-effect flex justify-between hover:shadow-lg transition-all duration-300 border-violet-200/20">
+                <CardHeader>
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <CardTitle className="text-xl bg-gradient-to-br from-violet-700 to-blue-700 dark:from-violet-400 dark:to-blue-400 bg-clip-text text-transparent">
+                        {journal.title}
+                      </CardTitle>
+                      <CardDescription className="flex items-center gap-2 mt-2">
+                        <Users2 className="h-4 w-4 text-violet-500" />
+                        {journal.authors}
+                      </CardDescription>
+                    </div>
+                    <Badge
+                      variant="secondary"
+                      className="bg-violet-100 dark:bg-violet-900 text-violet-700 dark:text-violet-300"
+                    >
+                      {journal.year}
+                    </Badge>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="mb-2 text-gray-600 dark:text-gray-300">
+                    {journal.description}
+                  </p>
+                  <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mt-4 gap-2">
+                    <BookText className="h-4 w-4 text-violet-500" />
+                    <span>
+                      {journal.journal}, {journal.volume}
+                    </span>
+                  </div>
+                </CardContent>
+                <CardFooter>
+                  <Button variant="outline" size="sm" className="group" asChild>
+                    <a
+                      href={journal.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2"
+                    >
+                      <span>Lihat Jurnal</span>
+                      <ExternalLink className="h-4 w-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    </a>
+                  </Button>
+                </CardFooter>
+              </Card>
             </motion.div>
-          </TabsContent>
+          ))}
+        </motion.div>
 
-          <TabsContent value="technical">
-            <div className="text-center text-gray-500 dark:text-gray-400 py-12">
-              Konten teknikal akan segera hadir
-            </div>
-          </TabsContent>
-
-          <TabsContent value="fundamental">
-            <div className="text-center text-gray-500 dark:text-gray-400 py-12">
-              Konten fundamental akan segera hadir
-            </div>
-          </TabsContent>
-        </Tabs>
+        {/* Load More Button */}
+        {visibleCount < journalSources.length && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            className="flex justify-center mt-8"
+          >
+            <Button
+              onClick={loadMore}
+              className="px-8 py-4 cursor-pointer text-lg"
+            >
+              Load More
+            </Button>
+          </motion.div>
+        )}
       </div>
     </Layout>
   );

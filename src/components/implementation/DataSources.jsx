@@ -43,7 +43,7 @@ export const DataSources = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.1 }}
         viewport={{ once: true }}
-        className="text-gray-700 mb-6"
+        className="text-gray-700 mb-6 dark:text-white"
       >
         SahamPedia Insight Hub mengumpulkan dan mengintegrasikan data dari
         berbagai sumber untuk memberikan analisis komprehensif tentang saham
@@ -60,46 +60,14 @@ export const DataSources = () => {
         {[
           {
             icon: Globe,
-            title: "Sumber Data Pasar",
-            description: "Data real-time dan historis",
+            title: "Sumber Data",
+            description: "Data Penelitian",
             items: [
-              "Bursa Efek Indonesia (IDX) untuk data saham domestik",
-              "Bloomberg Terminal untuk data pasar global",
-              "Reuters untuk kuotasi harga real-time",
+              "Bursa Efek Indonesia (IDX) untuk data saham",
+              "Rasa untuk data dokumentasi pemakaian",
               "Yahoo Finance untuk data historis jangka panjang",
-            ],
-          },
-          {
-            icon: BarChart3,
-            title: "Data Fundamental",
-            description: "Laporan dan rasio keuangan",
-            items: [
-              "Laporan keuangan perusahaan dari OJK dan IDX",
-              "Rasio keuangan utama (P/E, PBV, ROE, dll)",
-              "Data dividen historis",
-              "Kepemilikan saham dan struktur modal",
-            ],
-          },
-          {
-            icon: RefreshCw,
-            title: "Pipeline Data",
-            description: "Pengumpulan dan pemrosesan",
-            items: [
-              "ETL (Extract, Transform, Load) otomatis",
-              "Validasi dan pembersihan data",
-              "Normalisasi data dari berbagai sumber",
-              "Sinkronisasi data real-time dan batch",
-            ],
-          },
-          {
-            icon: Shield,
-            title: "Keamanan Data",
-            description: "Perlindungan dan privasi",
-            items: [
-              "Enkripsi end-to-end untuk semua data sensitif",
-              "Kepatuhan terhadap regulasi privasi data",
-              "Audit trail untuk akses dan modifikasi data",
-              "Backup dan disaster recovery terencana",
+              "Kaggle Referensi penggunaan LSTM",
+              "Goggle scholar untuk referensi penelitian",
             ],
           },
         ].map((section, index) => (
@@ -120,7 +88,7 @@ export const DataSources = () => {
                 </div>
               </CardHeader>
               <CardContent>
-                <ul className="list-disc pl-5 space-y-2 text-gray-700">
+                <ul className="list-disc pl-5 space-y-2 text-gray-700 dark:text-white">
                   {section.items.map((item, idx) => (
                     <li key={idx}>{item}</li>
                   ))}

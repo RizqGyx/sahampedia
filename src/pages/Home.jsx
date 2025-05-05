@@ -256,7 +256,7 @@ const Home = () => {
               size="lg"
               className="group bg-gradient-to-r cursor-pointer from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 border-0 text-white shadow-xl hover:shadow-2xl transition-all duration-200 py-6 px-8"
             >
-              Daftar Sekarang
+              Mulai Tingkatkan
               <ChevronRight className="ml-1 h-5 w-5 transform group-hover:translate-x-1 transition-transform" />
             </Button>
             <Link to="/implementation">
@@ -265,7 +265,7 @@ const Home = () => {
                 variant="outline"
                 className="bg-white/10 border-white cursor-pointer text-white hover:bg-white/20 py-6 px-8"
               >
-                Pelajari Detail Implementasi
+                Detail Implementasi
               </Button>
             </Link>
           </div>

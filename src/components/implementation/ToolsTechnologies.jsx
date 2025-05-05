@@ -37,7 +37,7 @@ export const ToolsTechnologies = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.1 }}
         viewport={{ once: true }}
-        className="text-gray-700 mb-6"
+        className="text-gray-700 mb-6 dark:text-white"
       >
         SahamPedia Insight Hub dibangun dengan teknologi modern yang
         memungkinkan skalabilitas, keandalan, dan pengalaman pengguna yang
@@ -57,10 +57,9 @@ export const ToolsTechnologies = () => {
             title: "Frontend",
             items: [
               "<strong>React.js</strong> - Library utama untuk membangun UI interaktif",
-              "<strong>TypeScript</strong> - Untuk keamanan tipe dan pengembangan yang lebih andal",
               "<strong>Tailwind CSS</strong> - Framework CSS untuk desain responsif",
               "<strong>Recharts</strong> - Library untuk visualisasi data dan grafik saham",
-              "<strong>React Query</strong> - State management untuk data dari API",
+              "<strong>Shadcn/ui</strong> - Komponen UI modern berbasis Tailwind untuk tampilan yang konsisten dan elegan",
               "<strong>Vite</strong> - Build tool untuk pengembangan yang cepat",
             ],
           },
@@ -68,25 +67,8 @@ export const ToolsTechnologies = () => {
             icon: Server,
             title: "Backend",
             items: [
-              "<strong>Node.js</strong> - Runtime JavaScript untuk backend",
-              "<strong>Express.js</strong> - Framework web untuk API REST",
               "<strong>FastAPI</strong> - Framework Python untuk API ML",
               "<strong>RASA</strong> - Platform open-source untuk chatbot cerdas",
-              "<strong>Socket.IO</strong> - Untuk komunikasi real-time",
-              "<strong>Docker</strong> - Containerization untuk deployment",
-              "<strong>Kubernetes</strong> - Orchestration untuk skalabilitas",
-            ],
-          },
-          {
-            icon: Database,
-            title: "Database & Storage",
-            items: [
-              "<strong>PostgreSQL</strong> - Database relasional utama",
-              "<strong>MongoDB</strong> - Database NoSQL untuk data tidak terstruktur",
-              "<strong>Redis</strong> - In-memory caching untuk kinerja",
-              "<strong>InfluxDB</strong> - Database time-series untuk data historis harga",
-              "<strong>Amazon S3</strong> - Penyimpanan objek untuk laporan dan data besar",
-              "<strong>Firebase</strong> - Untuk autentikasi dan realtime database",
             ],
           },
           {
@@ -94,12 +76,9 @@ export const ToolsTechnologies = () => {
             title: "Data & AI",
             items: [
               "<strong>Python</strong> - Bahasa utama untuk analisis data dan ML",
-              "<strong>TensorFlow & PyTorch</strong> - Framework deep learning",
+              "<strong>TensorFlow & Keras</strong> - Framework deep learning",
               "<strong>Pandas & NumPy</strong> - Manipulasi dan analisis data",
-              "<strong>scikit-learn</strong> - Algoritma machine learning klasik",
-              "<strong>NLTK & spaCy</strong> - Pemrosesan bahasa alami",
-              "<strong>Apache Airflow</strong> - Orkestrasi pipeline data",
-              "<strong>Apache Kafka</strong> - Streaming data real-time",
+              "<strong>Scikit-learn</strong> - Algoritma machine learning klasik",
             ],
           },
         ].map((section, index) => (
@@ -117,7 +96,7 @@ export const ToolsTechnologies = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <ul className="list-disc pl-5 space-y-2 text-gray-700">
+                <ul className="list-disc pl-5 space-y-2 text-gray-700 dark:text-white">
                   {section.items.map((item, idx) => (
                     <li key={idx} dangerouslySetInnerHTML={{ __html: item }} />
                   ))}

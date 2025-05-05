@@ -56,7 +56,7 @@ export const ImplementationHero = () => {
                 .getElementById("architecture")
                 ?.scrollIntoView({ behavior: "smooth" })
             }
-            className="group flex items-center space-x-2 bg-white/10 hover:bg-white/20 text-white px-6 py-3 rounded-lg transition-all duration-300 hover:scale-105"
+            className="group flex items-center space-x-2 cursor-pointer bg-white/10 hover:bg-white/20 text-white px-6 py-3 rounded-lg transition-all duration-300 hover:scale-105"
           >
             <span>Mulai Membaca</span>
             <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
