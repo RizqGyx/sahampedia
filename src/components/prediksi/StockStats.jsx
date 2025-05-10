@@ -36,7 +36,7 @@ export const StockStats = ({ data }) => {
     },
     {
       metric: "MAE (Normalized)",
-      value: data.evaluation.mae_numeric,
+      value: data.evaluation.mae_scaled,
     },
     {
       metric: "MAE (Rupiah)",
@@ -44,7 +44,7 @@ export const StockStats = ({ data }) => {
     },
     {
       metric: "RMSE (Normalized)",
-      value: data.evaluation.rmse_numeric,
+      value: data.evaluation.rmse_scaled,
     },
     {
       metric: "RMSE (Rupiah)",
