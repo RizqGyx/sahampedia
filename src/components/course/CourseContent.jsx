@@ -17,6 +17,39 @@ const CourseContent = ({ content }) => {
               ))}
             </div>
           );
+        } else if (item.type === "list") {
+          const items = item.value.split("\n").filter((i) => i.trim() !== "");
+
+          return (
+            <div key={index} className="prose max-w-none">
+              {item.list === "ol" ? (
+                <ol className="list-decimal pl-6 text-gray-900 dark:text-white leading-relaxed">
+                  {items.map((li, liIndex) => (
+                    <li key={`li-${index}-${liIndex}`} className="mb-2">
+                      {li}
+                    </li>
+                  ))}
+                </ol>
+              ) : (
+                <ul className="list-disc pl-6 text-gray-900 dark:text-white leading-relaxed">
+                  {items.map((li, liIndex) => (
+                    <li key={`li-${index}-${liIndex}`} className="mb-2">
+                      {li}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          );
+        } else if (item.type === "subtitle") {
+          return (
+            <h2
+              key={index}
+              className="text-2xl font-semibold text-primary dark:text-primary-light border-b border-gray-300 dark:border-gray-700 pb-2 mt-8"
+            >
+              {item.value}
+            </h2>
+          );
         } else if (item.type === "video") {
           return (
             <div
@@ -40,7 +73,7 @@ const CourseContent = ({ content }) => {
               </div>
             </div>
           );
-        } else if (item.type === "conclusion") {
+        } else if (item.type === "conclusion" || item.type === "note") {
           return (
             <div
               key={index}

@@ -45,7 +45,7 @@ const CourseMobileNav = ({
           </SheetTrigger>
           <SheetContent
             side="left"
-            className="w-[300px] sm:w-[300px] border-r border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-4 [&>button:last-of-type]:hidden"
+            className="w-[300px] sm:w-[300px] border-r lg:hidden border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-4 [&>button:last-of-type]:hidden"
           >
             <SheetClose asChild>
               <button
