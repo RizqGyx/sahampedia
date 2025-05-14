@@ -31,6 +31,10 @@ export const StockStats = ({ data }) => {
       value: "20%",
     },
     {
+      metric: "Note",
+      value: data.evaluation.note,
+    },
+    {
       metric: "Prediction Accuracy",
       value: `${data.evaluation.accuracy_percent}%`,
     },

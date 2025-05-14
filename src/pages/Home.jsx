@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, FileWarning } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/layout/Layout";
 import { TabTitle } from "@/lib/generalFunction";
@@ -211,19 +211,28 @@ const Home = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div>
             {loading ? (
-              Array.from({ length: 4 }).map((_, idx) => (
-                <StockCardSkeleton key={idx} />
-              ))
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                {Array.from({ length: 4 }).map((_, idx) => (
+                  <StockCardSkeleton key={idx} />
+                ))}
+              </div>
             ) : data && data.length > 0 ? (
-              data.map((card, index) => (
-                <StockCard key={card.stock} card={card} index={index} />
-              ))
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                {data.map((card, index) => (
+                  <StockCard key={card.stock} card={card} index={index} />
+                ))}
+              </div>
             ) : (
-              <h1 className="col-span-full text-center text-gray-600 dark:text-gray-300">
-                Tidak Ada Data Saham Tersedia Sekarang Ini
-              </h1>
+              <div className="flex items-center justify-center">
+                <div className="flex flex-col items-center space-y-4">
+                  <FileWarning className="relative w-16 h-16" />
+                  <p className="text-gray-600 dark:text-gray-300">
+                    Tidak Ada Data Saham Tersedia Sekarang Ini
+                  </p>
+                </div>
+              </div>
             )}
           </div>
         </div>

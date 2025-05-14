@@ -6,6 +6,7 @@ import Course from "./pages/Course";
 import Implementation from "./pages/Implementation";
 import Reference from "./pages/Reference";
 import NotFound from "./pages/NotFound";
+import Dashboard from "./pages/Dashboard";
 import { ChatbotBubble } from "./components/chatbot/ChatbotBubble";
 import { Toaster } from "sonner";
 import ScrollToTop from "./components/layout/ScrollTop";
@@ -37,6 +38,7 @@ function App() {
         <Route path="/course" element={<Course />}></Route>
         <Route path="/implementation" element={<Implementation />}></Route>
         <Route path="/reference" element={<Reference />}></Route>
+        <Route path="/admin" element={<Dashboard />}></Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
       <ChatbotBubble />
