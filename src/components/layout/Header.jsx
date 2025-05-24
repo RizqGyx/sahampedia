@@ -4,6 +4,7 @@ import { TrendingUp, Menu, Moon, Sun } from "lucide-react";
 import {
   Sheet,
   SheetTitle,
+  SheetDescription,
   SheetContent,
   SheetTrigger,
   SheetClose,
@@ -173,6 +174,12 @@ export const Header = () => {
                 <Moon className="h-6 w-6" />
               )}
             </button>
+            <Link
+              to="/login"
+              className="hidden md:inline-block bg-gradient-to-br from-blue-500 to-purple-600 hover:from-indigo-500 hover:to-pink-500 px-4 py-2 rounded-md font-semibold text-white shadow-sm transition-colors duration-300"
+            >
+              Admin
+            </Link>
             <Sheet>
               <SheetTrigger asChild>
                 <button className="md:hidden cursor-pointer p-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-blue-900/30 focus:outline-none">
@@ -199,6 +206,10 @@ export const Header = () => {
                     SahamPedia
                   </span>
                 </SheetTitle>
+                <SheetDescription>
+                  Platform edukasi dan analisis saham blue chip Indonesia dengan
+                  dukungan AI untuk keputusan investasi yang lebih cerdas.
+                </SheetDescription>
                 <div className="flex flex-col space-y-4 mt-6">
                   <Link
                     to="/"
@@ -275,6 +286,12 @@ export const Header = () => {
                     }`}
                   >
                     Referensi
+                  </Link>
+                  <Link
+                    to="/login"
+                    className="bg-gradient-to-br from-blue-500 to-purple-600 hover:from-indigo-500 hover:to-pink-500 transition-colors duration-300 text-white px-4 py-2 rounded-md text-center font-semibold shadow-sm"
+                  >
+                    Login Admin
                   </Link>
                 </div>
               </SheetContent>

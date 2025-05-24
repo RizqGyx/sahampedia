@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 import {
   Table,
   TableBody,
@@ -33,38 +34,18 @@ import {
 import { useForm } from "react-hook-form";
 import { Plus, Pencil, Trash } from "lucide-react";
 import { toast } from "sonner";
+import ConfirmDeleteDialog from "./ConfirmDeleteDialog";
+
+const API_URL = "http://127.0.0.1:5000/api/v1/lessons";
 
 export function LessonsTable() {
-  const [lessons, setLessons] = useState([
-    {
-      id: "1",
-      lesson_id: "lesson-1",
-      title: "Understanding JSX",
-      module_id: "1",
-    },
-    {
-      id: "2",
-      lesson_id: "lesson-2",
-      title: "Component Props",
-      module_id: "1",
-    },
-  ]);
-
-  const modules = [
-    {
-      id: "1",
-      module_id: "module-1",
-      title: "React Basics",
-    },
-    {
-      id: "2",
-      module_id: "module-2",
-      title: "React Hooks",
-    },
-  ];
-
+  const [lessons, setLessons] = useState([]);
+  const [modules, setModules] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [editingLesson, setEditingLesson] = useState(null);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [selectedLessonId, setSelectedLessonId] = useState(null);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const form = useForm({
     defaultValues: {
@@ -74,10 +55,44 @@ export function LessonsTable() {
     },
   });
 
-  const handleDelete = (id) => {
-    if (confirm("Are you sure you want to delete this lesson?")) {
-      setLessons(lessons.filter((lesson) => lesson.id !== id));
+  // Fetch all lessons
+  const fetchLessons = async () => {
+    try {
+      const response = await axios.get(API_URL);
+      setLessons(response.data.lessons);
+    } catch (error) {
+      toast.error("Failed to fetch lessons");
+      console.error(error);
+    }
+  };
+
+  const fetchModules = async () => {
+    try {
+      const res = await axios.get("http://127.0.0.1:5000/api/v1/modules");
+      setModules(res.data.modules);
+    } catch {
+      toast.error("Failed to fetch modules");
+    }
+  };
+
+  useEffect(() => {
+    fetchLessons();
+    fetchModules();
+  }, []);
+
+  const handleDelete = async () => {
+    if (!selectedLessonId) return;
+    setIsDeleting(true);
+    try {
+      await axios.delete(`${API_URL}/${selectedLessonId}`);
       toast.success("Lesson deleted successfully");
+      fetchLessons();
+    } catch (error) {
+      toast.error("Failed to delete lesson");
+    } finally {
+      setIsDeleting(false);
+      setDeleteDialogOpen(false);
+      setSelectedLessonId(null);
     }
   };
 
@@ -91,23 +106,34 @@ export function LessonsTable() {
     setIsOpen(true);
   };
 
-  const onSubmit = (data) => {
-    if (editingLesson) {
-      setLessons(
-        lessons.map((l) => (l.id === editingLesson.id ? { ...l, ...data } : l))
-      );
-      toast.success("Lesson updated successfully");
-    } else {
-      const newLesson = {
-        id: Math.random().toString(36).substr(2, 9),
-        ...data,
-      };
-      setLessons([...lessons, newLesson]);
-      toast.success("Lesson created successfully");
+  const onSubmit = async (data) => {
+    if (
+      !data.lesson_id.trim() ||
+      !data.title.trim() ||
+      !data.module_id.trim()
+    ) {
+      toast.error("All fields are required");
+      return;
     }
-    setIsOpen(false);
-    form.reset();
-    setEditingLesson(null);
+
+    try {
+      if (editingLesson) {
+        const updatedLesson = { ...editingLesson, ...data };
+        await axios.put(`${API_URL}/${editingLesson.lesson_id}`, updatedLesson);
+        toast.success("Lesson updated successfully");
+      } else {
+        await axios.post(API_URL, data);
+        toast.success("Lesson created successfully");
+      }
+
+      fetchLessons(); // Refresh list
+      form.reset();
+      setIsOpen(false);
+      setEditingLesson(null);
+    } catch (error) {
+      toast.error("Failed to save lesson");
+      console.error(error);
+    }
   };
 
   const openCreateDialog = () => {
@@ -121,8 +147,8 @@ export function LessonsTable() {
   };
 
   const getModuleTitle = (moduleId) => {
-    const module = modules.find((m) => m.id === moduleId);
-    return module ? module.title : "Unknown Module";
+    const module = modules.find((m) => m.module_id === moduleId);
+    return module ? module.title + ` [${module.module_id}]` : "Unknown Module";
   };
 
   return (
@@ -151,13 +177,16 @@ export function LessonsTable() {
                   <FormItem>
                     <FormLabel>Lesson ID</FormLabel>
                     <FormControl>
-                      <Input placeholder="lesson-1" {...field} />
+                      <Input
+                        placeholder="lesson-1"
+                        {...field}
+                        disabled={!!editingLesson}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-
               <FormField
                 control={form.control}
                 name="title"
@@ -171,7 +200,6 @@ export function LessonsTable() {
                   </FormItem>
                 )}
               />
-
               <FormField
                 control={form.control}
                 name="module_id"
@@ -180,8 +208,8 @@ export function LessonsTable() {
                     <FormLabel>Module</FormLabel>
                     <Select
                       onValueChange={field.onChange}
-                      defaultValue={field.value}
                       value={field.value}
+                      defaultValue={field.value}
                     >
                       <FormControl>
                         <SelectTrigger>
@@ -190,7 +218,10 @@ export function LessonsTable() {
                       </FormControl>
                       <SelectContent>
                         {modules.map((module) => (
-                          <SelectItem key={module.id} value={module.id}>
+                          <SelectItem
+                            key={module.module_id}
+                            value={module.module_id}
+                          >
                             {module.title}
                           </SelectItem>
                         ))}
@@ -200,12 +231,15 @@ export function LessonsTable() {
                   </FormItem>
                 )}
               />
-
               <div className="flex justify-end gap-2">
                 <Button
                   type="button"
                   variant="outline"
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => {
+                    setIsOpen(false);
+                    form.reset();
+                    setEditingLesson(null);
+                  }}
                 >
                   Cancel
                 </Button>
@@ -229,32 +263,45 @@ export function LessonsTable() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {lessons.map((lesson) => (
-              <TableRow key={lesson.id}>
-                <TableCell>{lesson.lesson_id}</TableCell>
-                <TableCell>{lesson.title}</TableCell>
-                <TableCell>{getModuleTitle(lesson.module_id)}</TableCell>
-                <TableCell className="text-right">
-                  <div className="flex justify-end gap-2">
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => handleEdit(lesson)}
-                    >
-                      <Pencil size={16} />
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => handleDelete(lesson.id)}
-                    >
-                      <Trash size={16} />
-                    </Button>
-                  </div>
-                </TableCell>
-              </TableRow>
-            ))}
-            {lessons.length === 0 && (
+            {lessons && lessons.length > 0 ? (
+              lessons.map((lesson) => (
+                <TableRow key={lesson.lesson_id}>
+                  <TableCell>{lesson.lesson_id}</TableCell>
+                  <TableCell>{lesson.title}</TableCell>
+                  <TableCell>{getModuleTitle(lesson.module_id)}</TableCell>
+                  <TableCell className="text-right">
+                    <div className="flex justify-end gap-2">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => handleEdit(lesson)}
+                      >
+                        <Pencil size={16} />
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => {
+                          setSelectedLessonId(lesson.lesson_id);
+                          setDeleteDialogOpen(true);
+                        }}
+                      >
+                        <Trash size={16} />
+                      </Button>
+                    </div>
+                  </TableCell>
+                  <ConfirmDeleteDialog
+                    key={lesson.lesson_id}
+                    open={deleteDialogOpen}
+                    setOpen={setDeleteDialogOpen}
+                    onConfirm={() => handleDelete(selectedLessonId)}
+                    title="Hapus Lesson"
+                    description={`Data Lesson dengan ID: ${selectedLessonId} akan dihapus secara permanen. Anda yakin ingin melanjutkan?`}
+                    loading={isDeleting}
+                  />
+                </TableRow>
+              ))
+            ) : (
               <TableRow>
                 <TableCell
                   colSpan={4}

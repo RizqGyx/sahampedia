@@ -3,7 +3,12 @@ import { motion } from "framer-motion";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 
-export const Layout = ({ children }) => {
+export const Layout = ({
+  children,
+  hideHeader = false,
+  hideFooter = false,
+  hidecontainer = false,
+}) => {
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
@@ -49,7 +54,7 @@ export const Layout = ({ children }) => {
 
       <div className="fixed inset-0 bg-grid-pattern opacity-5 dark:opacity-10 pointer-events-none -z-10"></div>
 
-      <Header />
+      {!hideHeader && <Header />}
 
       <motion.main
         initial={{ opacity: 0, y: 20 }}
@@ -59,11 +64,15 @@ export const Layout = ({ children }) => {
       >
         <div className="relative">
           <div className="absolute top-0 left-0 w-full h-10 bg-gradient-to-r from-blue-50/40 to-purple-50/40 dark:from-blue-900/40 dark:to-purple-900/40 backdrop-blur-sm -translate-y-full"></div>
-          <div className="container mx-auto px-4 py-8">{children}</div>
+          <div
+            className={`${hidecontainer ? "" : "container"} mx-auto px-4 py-8`}
+          >
+            {children}
+          </div>
         </div>
       </motion.main>
 
-      <Footer />
+      {!hideFooter && <Footer />}
     </div>
   );
 };

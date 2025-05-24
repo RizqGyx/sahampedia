@@ -129,7 +129,7 @@ const Reference = () => {
                 <div className="absolute inset-3 rounded-full border-4 border-t-purple-600 border-r-transparent border-b-transparent border-l-transparent animate-spin"></div>
               </div>
               <p className="text-gray-600 dark:text-gray-300">
-                Loading prediction data...
+                Memuat Data Referensi...
               </p>
             </div>
           </div>
@@ -223,7 +223,7 @@ const Reference = () => {
             <div className="flex flex-col items-center space-y-4">
               <FileWarning className="relative w-16 h-16" />
               <p className="text-gray-600 dark:text-gray-300">
-                Data Reference Not Found
+                Data Referensi Tidak Ditemukan
               </p>
             </div>
           </div>

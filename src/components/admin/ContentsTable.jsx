@@ -386,7 +386,7 @@ export function ContentsTable() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>ID</TableHead>
+              <TableHead>Content ID</TableHead>
               <TableHead>Type</TableHead>
               <TableHead>Lesson</TableHead>
               <TableHead>Value</TableHead>
@@ -401,7 +401,14 @@ export function ContentsTable() {
                   <TableCell>{item.type}</TableCell>
                   <TableCell>
                     {lessons.find((l) => l.lesson_id === item.lesson_id)
-                      ?.title || "Unknown"}
+                      ? `${
+                          lessons.find((l) => l.lesson_id === item.lesson_id)
+                            .title
+                        } [${
+                          lessons.find((l) => l.lesson_id === item.lesson_id)
+                            .lesson_id
+                        }]`
+                      : "Unknown"}
                   </TableCell>
                   <TableCell className="truncate max-w-xs">
                     {item.value ||

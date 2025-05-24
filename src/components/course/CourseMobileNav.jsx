@@ -8,6 +8,7 @@ import {
 import {
   Sheet,
   SheetTitle,
+  SheetDescription,
   SheetContent,
   SheetTrigger,
   SheetClose,
@@ -57,9 +58,14 @@ const CourseMobileNav = ({
             </SheetClose>
             <SheetTitle className="flex items-center mb-6 space-x-2">
               <span className="font-bold text-xl text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-purple-700 dark:from-blue-400 dark:to-purple-400">
-                {title}
+                SahamPedia
               </span>
             </SheetTitle>
+            <SheetDescription>
+              <span className="font-bold text-xl text-black dark:text-white">
+                {title} - Content Navigation
+              </span>
+            </SheetDescription>
             <div className="flex flex-col space-y-4 mt-6">
               <Accordion
                 type="multiple"
@@ -68,23 +74,23 @@ const CourseMobileNav = ({
               >
                 {modules.map((module, moduleIndex) => (
                   <AccordionItem
-                    key={module.id}
+                    key={module.module_id}
                     value={`module-${moduleIndex}`}
                   >
-                    <AccordionTrigger className="text-left text-white [&>svg]:text-white">
+                    <AccordionTrigger className="text-left text-black dark:text-white dark:[&>svg]:text-white">
                       {module.title}
                     </AccordionTrigger>
                     <AccordionContent>
                       <ul className="space-y-1 pl-2">
                         {module.lessons.map((lesson, lessonIndex) => (
-                          <li key={lesson.id}>
+                          <li key={lesson.lesson_id}>
                             <button
                               className={cn(
-                                "w-full text-left px-3 py-2 rounded-md text-sm transition-colors cursor-pointer hover:bg-slate-100 hover:text-gray-900",
+                                "w-full text-left px-3 py-2 rounded-md text-sm transition-colors cursor-pointer hover:bg-gray-400 hover:text-white  dark:hover:bg-slate-100 dark:hover:text-gray-900",
                                 moduleIndex === activeModule &&
                                   lessonIndex === activeLesson
-                                  ? "bg-slate-200 font-medium text-violet-900"
-                                  : "text-white"
+                                  ? "dark:bg-slate-200 font-medium dark:text-violet-900 bg-violet-900 text-white"
+                                  : "text-black dark:text-white"
                               )}
                               onClick={() =>
                                 onSelectModule(moduleIndex, lessonIndex)

@@ -20,14 +20,14 @@ const CourseNavigation = ({
       className="w-full"
     >
       {modules.map((module, moduleIndex) => (
-        <AccordionItem key={module.id} value={`module-${moduleIndex}`}>
+        <AccordionItem key={module.module_id} value={`module-${moduleIndex}`}>
           <AccordionTrigger className="text-left text-white [&>svg]:text-white">
             {module.title}
           </AccordionTrigger>
           <AccordionContent>
             <ul className="space-y-1 pl-2">
               {module.lessons.map((lesson, lessonIndex) => (
-                <li key={lesson.id}>
+                <li key={lesson.lesson_id}>
                   <button
                     className={cn(
                       "w-full text-left px-3 py-2 rounded-md text-sm transition-colors cursor-pointer hover:bg-slate-100 hover:text-gray-900",

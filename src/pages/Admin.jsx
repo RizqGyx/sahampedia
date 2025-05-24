@@ -8,7 +8,7 @@ import { ContentsTable } from "@/components/admin/ContentsTable";
 import { JournalsTable } from "@/components/admin/JournalsTable";
 import { Layout } from "@/components/layout/Layout";
 
-const Dashboard = () => {
+const Admin = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const searchParams = new URLSearchParams(location.search);
@@ -75,4 +75,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Admin;

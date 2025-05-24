@@ -53,7 +53,7 @@ const Prediction = () => {
   return (
     <Layout>
       <div className="max-w-7xl mx-auto">
-        {loading ? (
+        {loading && (
           <div className="h-screen flex items-center justify-center">
             <div className="flex flex-col items-center space-y-4">
               <div className="relative w-16 h-16">
@@ -61,14 +61,16 @@ const Prediction = () => {
                 <div className="absolute inset-3 rounded-full border-4 border-t-purple-600 border-r-transparent border-b-transparent border-l-transparent animate-spin"></div>
               </div>
               <p className="text-gray-600 dark:text-gray-300">
-                Loading prediction data...
+                Memuat Data Prediksi...
               </p>
             </div>
           </div>
-        ) : data && data.predictions && data.predictions.length ? (
+        )}
+
+        {!loading && (
           <>
             <div
-              className="sticky top-16 z-30 -mx-4 px-4 py-3 transition-all duration-200 mb-6 backdrop-blur-md bg-white/70 dark:bg-gray-900/70 rounded-b-xl shadow-sm"
+              className="sticky top-16 z-30 px-4 py-3 mb-6 bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg border-b border-gray-200 dark:border-gray-700 shadow-md rounded-b-2xl transition-all duration-300"
               style={{
                 opacity: scrolled ? 1 : 0,
                 transform: scrolled ? "translateY(0)" : "translateY(-100%)",
@@ -92,11 +94,12 @@ const Prediction = () => {
               </div>
             </div>
 
+            {/* Main Content */}
             <div className="space-y-8">
               <div className="flex flex-col gap-4">
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                   <div>
-                    <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-1">
+                    <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-1">
                       {symbol?.toUpperCase()} Price Prediction
                     </h1>
                     <div className="flex items-center text-gray-500 dark:text-gray-400 text-sm space-x-3">
@@ -114,10 +117,8 @@ const Prediction = () => {
                   <AlertCircle className="h-5 w-5 text-blue-600 dark:text-blue-400 mt-0.5 flex-shrink-0" />
                   <p className="text-gray-600 dark:text-gray-300 text-sm">
                     AI-powered stock price predictions for{" "}
-                    {symbol?.toUpperCase()} using LSTM (Long Short-Term Memory)
-                    model. The model analyzes historical data to forecast price
-                    movements for the next {selectedDays} days.{" "}
-                    {stockDescription}
+                    {symbol?.toUpperCase()} using LSTM. Forecast for{" "}
+                    {selectedDays} days. {stockDescription}
                   </p>
                 </div>
 
@@ -131,25 +132,26 @@ const Prediction = () => {
 
               <div className="grid lg:grid-cols-3 gap-6">
                 <div className="lg:col-span-2">
-                  <StockChart data={data} days={selectedDays} />
+                  <StockChart
+                    data={data?.predictions?.length ? data : null}
+                    days={selectedDays}
+                  />
                 </div>
                 <div>
-                  <StockInfo data={data} />
+                  <StockInfo data={data?.predictions?.length ? data : null} />
                 </div>
               </div>
 
-              <StockStats data={data} />
+              <StockStats data={data?.predictions?.length ? data : null} />
+
+              {/* Jika tidak ada data */}
+              {!data?.predictions?.length && (
+                <div className="flex items-center justify-center p-10 text-center text-muted-foreground text-sm border border-dashed border-gray-300 dark:border-gray-600 rounded-xl">
+                  Tidak ada data prediksi yang tersedia untuk saham ini.
+                </div>
+              )}
             </div>
           </>
-        ) : (
-          <div className="h-screen flex items-center justify-center">
-            <div className="flex flex-col items-center space-y-4">
-              <FileWarning className="relative w-16 h-16" />
-              <p className="text-gray-600 dark:text-gray-300">
-                Data Prediction Not Found
-              </p>
-            </div>
-          </div>
         )}
       </div>
     </Layout>

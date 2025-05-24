@@ -9,6 +9,7 @@ import {
   ChartLegend,
   ChartLegendContent,
 } from "@/components/ui/chart";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const chartConfig = {
   predicted_price: {
@@ -18,6 +19,8 @@ const chartConfig = {
 };
 
 export const StockChart = ({ data, days }) => {
+  const isLoading = !data || !data.predictions || data.predictions.length === 0;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -35,44 +38,48 @@ export const StockChart = ({ data, days }) => {
         </CardHeader>
         <CardContent>
           <div className="aspect-[16/9] w-full">
-            <ChartContainer config={chartConfig}>
-              <AreaChart
-                data={data.predictions}
-                margin={{ top: 5, right: 30, left: 15, bottom: 5 }}
-              >
-                <XAxis
-                  dataKey="date"
-                  tickLine={false}
-                  axisLine={true}
-                  stroke="#888888"
-                  fontSize={11}
-                />
-                <YAxis
-                  tickLine={false}
-                  axisLine={true}
-                  stroke="#888888"
-                  fontSize={12}
-                  tickFormatter={(value) => `Rp${value.toLocaleString()}`}
-                  domain={["dataMin - 200", "dataMax + 200"]}
-                />
-                <ChartTooltip content={<ChartTooltipContent />} />
-                <Area
-                  type="monotone"
-                  dataKey="predicted_price"
-                  stroke="#2563eb"
-                  fill="url(#gradient)"
-                  strokeWidth={2}
-                  activeDot={{ r: 6, strokeWidth: 0 }}
-                />
-                <defs>
-                  <linearGradient id="gradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#2563eb" stopOpacity={0.2} />
-                    <stop offset="100%" stopColor="#2563eb" stopOpacity={0} />
-                  </linearGradient>
-                </defs>
-                <ChartLegend content={<ChartLegendContent />} />
-              </AreaChart>
-            </ChartContainer>
+            {isLoading ? (
+              <Skeleton className="w-full h-full rounded-lg" />
+            ) : (
+              <ChartContainer config={chartConfig}>
+                <AreaChart
+                  data={data.predictions}
+                  margin={{ top: 5, right: 30, left: 15, bottom: 5 }}
+                >
+                  <XAxis
+                    dataKey="date"
+                    tickLine={false}
+                    axisLine={true}
+                    stroke="#888888"
+                    fontSize={11}
+                  />
+                  <YAxis
+                    tickLine={false}
+                    axisLine={true}
+                    stroke="#888888"
+                    fontSize={12}
+                    tickFormatter={(value) => `Rp${value.toLocaleString()}`}
+                    domain={["dataMin - 200", "dataMax + 200"]}
+                  />
+                  <ChartTooltip content={<ChartTooltipContent />} />
+                  <Area
+                    type="monotone"
+                    dataKey="predicted_price"
+                    stroke="#2563eb"
+                    fill="url(#gradient)"
+                    strokeWidth={2}
+                    activeDot={{ r: 6, strokeWidth: 0 }}
+                  />
+                  <defs>
+                    <linearGradient id="gradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#2563eb" stopOpacity={0.2} />
+                      <stop offset="100%" stopColor="#2563eb" stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                  <ChartLegend content={<ChartLegendContent />} />
+                </AreaChart>
+              </ChartContainer>
+            )}
           </div>
         </CardContent>
       </Card>
