@@ -215,10 +215,18 @@ const AdminContent = () => {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+  const totalPages = Math.max(1, Math.ceil(filteredData.length / itemsPerPage));
+
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages || 1);
+    }
+  }, [filteredData.length, currentPage, totalPages]);
 
   const handlePageChange = (page) => {
-    setCurrentPage(page);
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
   };
 
   const getLessonTitle = (lessonId) => {
@@ -416,7 +424,7 @@ const AdminContent = () => {
                       {item.type}
                     </CardTitle>
                     <CardDescription className="text-xs text-muted-foreground">
-                      Lesson ID: {item.content_id}
+                      Content ID: {item.content_id}
                     </CardDescription>
                   </div>
                   <FileText className="h-5 w-5 text-muted-foreground mt-0.5" />
@@ -542,14 +550,15 @@ const AdminContent = () => {
           open={deleteDialogOpen}
           setOpen={setDeleteDialogOpen}
           onConfirm={() => handleDelete(selectedContentId)}
-          title="Delete Module"
-          description={`Data Module with ID: ${selectedContentId} will be permanently deleted. Are you sure you want to proceed?`}
+          title="Delete Content"
+          description={`Data Content with ID: ${selectedContentId} will be permanently deleted. Are you sure you want to proceed?`}
           loading={isDeleting}
         />
 
         {/* Pagination */}
         {totalPages > 1 && (
           <div className="flex items-center justify-center space-x-2 mt-4">
+            {/* Tombol kiri */}
             <Button
               variant="outline"
               size="icon"
@@ -558,23 +567,62 @@ const AdminContent = () => {
             >
               <ChevronLeft className="h-4 w-4" />
             </Button>
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+
+            {/* Halaman pertama */}
+            <Button
+              variant={currentPage === 1 ? "default" : "outline"}
+              size="sm"
+              onClick={() => handlePageChange(1)}
+            >
+              1
+            </Button>
+
+            {/* Halaman sebelumnya (jika valid dan bukan halaman 1) */}
+            {currentPage - 1 > 1 && (
               <Button
-                key={page}
-                variant={page === currentPage ? "default" : "outline"}
+                variant="outline"
                 size="sm"
-                onClick={() => handlePageChange(page)}
-                className="cursor-pointer"
+                onClick={() => handlePageChange(currentPage - 1)}
               >
-                {page}
+                {currentPage - 1}
               </Button>
-            ))}
+            )}
+
+            {/* Halaman saat ini (jika bukan halaman 1 atau terakhir) */}
+            {currentPage !== 1 && currentPage !== totalPages && (
+              <Button variant="default" size="sm">
+                {currentPage}
+              </Button>
+            )}
+
+            {/* Halaman sesudah (jika valid dan bukan halaman terakhir) */}
+            {currentPage + 1 < totalPages && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => handlePageChange(currentPage + 1)}
+              >
+                {currentPage + 1}
+              </Button>
+            )}
+
+            {/* Halaman terakhir */}
+            {totalPages !== 1 && (
+              <Button
+                variant={currentPage === totalPages ? "default" : "outline"}
+                size="sm"
+                onClick={() => handlePageChange(totalPages)}
+              >
+                {totalPages}
+              </Button>
+            )}
+
+            {/* Tombol kanan */}
             <Button
               variant="outline"
               size="icon"
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
-              className="cursor-pointer"
             >
               <ChevronRight className="h-4 w-4" />
             </Button>
@@ -661,8 +709,11 @@ const AdminContent = () => {
                         value={field.value}
                       >
                         <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select lesson" />
+                          <SelectTrigger className="truncate max-w-[25rem]">
+                            <SelectValue
+                              placeholder="Select lesson"
+                              className="truncate"
+                            />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>

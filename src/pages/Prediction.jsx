@@ -25,7 +25,7 @@ const Prediction = () => {
 
   const handlePost = () => {
     const body = {
-      stock_name: symbol?.toUpperCase(),
+      stock_code: selectedStock.toUpperCase(),
       start_date: new Date().toISOString().split("T")[0],
       days: selectedDays,
     };

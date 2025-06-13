@@ -18,6 +18,7 @@ import { useAuth } from "@/contexts/AuthContext";
 
 const DashboardLayout = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
+  const [mobile, setMobile] = useState(false);
   const navigate = useNavigate();
   const { logout } = useAuth();
   const [name, setName] = useState("");
@@ -54,6 +55,23 @@ const DashboardLayout = ({ children }) => {
 
   useEffect(() => {
     fetchData();
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setCollapsed(true);
+        setMobile(true);
+      } else {
+        setCollapsed(false);
+        setMobile(false);
+      }
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
@@ -106,7 +124,7 @@ const DashboardLayout = ({ children }) => {
           <div className="flex items-center">
             <button
               onClick={() => setCollapsed(!collapsed)}
-              className="cursor-pointer"
+              className={`cursor-pointer ${mobile ? "hidden" : "block"}`}
             >
               <Menu className="w-5 h-5" />
             </button>

@@ -378,6 +378,7 @@ const AdminModule = () => {
         {/* Pagination */}
         {totalPages > 1 && (
           <div className="flex items-center justify-center space-x-2 mt-4">
+            {/* Tombol kiri */}
             <Button
               variant="outline"
               size="icon"
@@ -386,23 +387,62 @@ const AdminModule = () => {
             >
               <ChevronLeft className="h-4 w-4" />
             </Button>
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+
+            {/* Halaman pertama */}
+            <Button
+              variant={currentPage === 1 ? "default" : "outline"}
+              size="sm"
+              onClick={() => handlePageChange(1)}
+            >
+              1
+            </Button>
+
+            {/* Halaman sebelumnya (jika valid dan bukan halaman 1) */}
+            {currentPage - 1 > 1 && (
               <Button
-                key={page}
-                variant={page === currentPage ? "default" : "outline"}
+                variant="outline"
                 size="sm"
-                onClick={() => handlePageChange(page)}
-                className="cursor-pointer"
+                onClick={() => handlePageChange(currentPage - 1)}
               >
-                {page}
+                {currentPage - 1}
               </Button>
-            ))}
+            )}
+
+            {/* Halaman saat ini (jika bukan halaman 1 atau terakhir) */}
+            {currentPage !== 1 && currentPage !== totalPages && (
+              <Button variant="default" size="sm">
+                {currentPage}
+              </Button>
+            )}
+
+            {/* Halaman sesudah (jika valid dan bukan halaman terakhir) */}
+            {currentPage + 1 < totalPages && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => handlePageChange(currentPage + 1)}
+              >
+                {currentPage + 1}
+              </Button>
+            )}
+
+            {/* Halaman terakhir */}
+            {totalPages !== 1 && (
+              <Button
+                variant={currentPage === totalPages ? "default" : "outline"}
+                size="sm"
+                onClick={() => handlePageChange(totalPages)}
+              >
+                {totalPages}
+              </Button>
+            )}
+
+            {/* Tombol kanan */}
             <Button
               variant="outline"
               size="icon"
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
-              className="cursor-pointer"
             >
               <ChevronRight className="h-4 w-4" />
             </Button>
@@ -476,8 +516,11 @@ const AdminModule = () => {
                         value={field.value}
                       >
                         <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select a course" />
+                          <SelectTrigger className="truncate max-w-[25rem]">
+                            <SelectValue
+                              placeholder="Select a course"
+                              className="truncate"
+                            />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>

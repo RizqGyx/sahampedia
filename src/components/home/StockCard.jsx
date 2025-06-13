@@ -28,7 +28,7 @@ export function StockCard({ card, index }) {
       viewport={{ once: false }}
     >
       <Link
-        to={`/prediction/${card.stock}`}
+        to={`/prediction/${card.stock.toLowerCase()}`}
         className="group relative bg-white dark:bg-gray-800 backdrop-blur-sm p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 flex flex-col items-center text-center border border-gray-100 dark:border-gray-700"
       >
         <div className="absolute -inset-px bg-gradient-to-br from-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 rounded-xl transition-opacity duration-300 -z-10"></div>
