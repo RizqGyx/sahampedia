@@ -5,7 +5,7 @@ import { Share2, Download } from "lucide-react";
 const ActionButtons = ({ symbol }) => {
   const handleDownload = () => {
     const link = document.createElement("a");
-    link.href = `../data/dataset_${symbol?.toUpperCase()}_Original.csv`;
+    link.href = `/data/dataset_${symbol?.toUpperCase()}_Original.csv`;
     link.download = `dataset_${symbol?.toUpperCase()}_Original.csv`;
     link.click();
   };
